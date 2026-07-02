@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papa_Kult</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
+.hero{position:relative;height:200px;overflow:hidden;}
+.hero img{width:100%;height:100%;object-fit:cover;opacity:0.5;}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:20px;background:linear-gradient(transparent,#000);}
+.logo{font-size:32px;font-weight:900;color:#ff6600;}
+.subtitle{font-size:11px;color:#aaa;margin-top:4px;}
+.tabs{display:flex;background:#111;border-bottom:1px solid #333;}
+.tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;color:#555;cursor:pointer;border-bottom:3px solid transparent;font-weight:700;}
+.tab.active{color:#ff6600;border-bottom-color:#ff6600;}
+.page{padding:16px;display:none;}
+.page.active{display:block;}
+.card{background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:10px;border-left:4px solid #ff6600;}
+.card h3{font-size:15px;margin-bottom:4px;}
+.card p{font-size:12px;color:#888;margin-bottom:8px;}
+.price{font-size:18px;font-weight:900;color:#ff6600;}
+.btn{display:block;width:100%;padding:14px;background:#ff6600;border:none;border-radius:10px;color:#000;font-size:15px;font-weight:800;cursor:pointer;margin-top:12px;}
+.ach{background:#1a1a1a;border-radius:10px;padding:12px;margin-bottom:8px;}
+.ach h4{color:#ff6600;font-size:12px;margin-bottom:4px;}
+.ach p{font-size:12px;color:#ccc;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;}
+.addr{background:#1a1a1a;border-radius:10px;padding:16px;margin-top:12px;}
+.addr h4{color:#ff6600;margin-bottom:8px;}
+.addr p{font-size:11px;color:#888;word-break:break-all;font-family:monospace;}
+</style>
+</head>
+<body>
+<div class="hero">
+<img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80">
+<div class="hero-overlay">
+<div class="logo">PAPA_KULT</div>
+<div class="subtitle">Андрей Шелест • Чемпион Мира</div>
+</div>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="show('s')">Услуги</div>
+<div class="tab" onclick="show('t')">Тренер</div>
+<div class="tab" onclick="show('g')">Фото</div>
+<div class="tab" onclick="show('p')">Оплата</div>
+</div>
+
+<div id="s" class="page active">
+<div class="card"><h3>🗣 Консультация</h3><p>Онлайн 60 минут. Научный подход</p><div class="price">80 USDT</div></div>
+<div class="card"><h3>📋 Программа тренировок</h3><p>Индивидуальная на 8-12 недель</p><div class="price">150 USDT</div></div>
+<div class="card"><h3>🥗 Составление диеты</h3><p>КБЖУ, меню, добавки</p><div class="price">100 USDT</div></div>
+<div class="card"><h3>🧪 Разбор анализов</h3><p>Кровь и гормоны. Медобразование</p><div class="price">120 USDT</div></div>
+<div class="card"><h3>💊 Курс стероидов</h3><p>Научный подбор. ПКТ. 18+</p><div class="price">120 USDT</div></div>
+<div class="card"><h3>🎯 Онлайн-ведение</h3><p>Месяц на связи каждый день</p><div class="price">250 USDT</div></div>
+<div class="card" onclick="openTg()"><h3>🏟 Персональная тренировка</h3><p>В фитнес-центре</p><div class="price" style="font-size:14px;">Написать тренеру →</div></div>
+</div>
+
+<div id="t" class="page">
+<img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=800&q=80" style="width:100%;height:280px;object-fit:contain;background:#111;border-radius:12px;margin-bottom:12px;">
+<div class="ach"><h4>🏆 Чемпион Мира и Рекордсмен Мира</h4><p>Пауэрлифтинг НАП. МСМК в 2 дисциплинах (2010-2023)</p></div>
+<div class="ach"><h4>🥇 Бодибилдинг</h4><p>Абсолютный чемпион Сибири. Топ-3 Чемпионат России. Arnold Classic Испания</p></div>
+<div class="ach"><h4>🎓 Медицинское образование</h4><p>Новосибирский Государственный Медицинский Университет</p></div>
+<div class="ach"><h4>🏅 Спортивное образование</h4><p>Национальный Университет Фитнеса</p></div>
+<div class="ach"><h4>💪 Тренер</h4><p>Подготовил 100+ спортсменов на чемпионатах по бодибилдингу</p></div>
+<div class="ach"><h4>🎤 Организатор и эксперт</h4><p>Провёл 70+ семинаров. Разработчик методик питания</p></div>
+<button class="btn" onclick="openTg()">✉️ Написать тренеру</button>
+</div>
+
+<div id="g" class="page">
+<div class="grid">
+<img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80">
+<img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80">
+<img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80">
+<img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80">
+<img src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=400&q=80">
+<img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=400&q=80">
+</div>
+</div>
+
+<div id="p" class="page">
+<div class="addr">
+<h4>💳 USDT TRC-20</h4>
+<p id="addr">TES8Z2VYduByHczLBj87vTqJDECGbFdEyH</p>
+<button class="btn" onclick="copyAddr()" style="margin-top:10px;background:#333;color:#ff6600;">📋 Скопировать адрес</button>
+</div>
+<p style="margin-top:12px;font-size:12px;color:#666;">Отправляй только USDT в сети TRC-20. После оплаты напиши тренеру.</p>
+<button class="btn" onclick="openTg()">✉️ Написать после оплаты</button>
+</div>
+
+<script>
+var tg = window.Telegram && window.Telegram.WebApp;
+if(tg){tg.ready();tg.expand();}
+function show(id){
+var ids=['s','t','g','p'];
+for(var i=0;i<ids.length;i++){
+document.getElementById(ids[i]).style.display='none';
+document.getElementById(ids[i]).className='page';
+}
+document.getElementById(id).style.display='block';
+document.getElementById(id).className='page active';
+var tabs=document.querySelectorAll('.tab');
+var map={s:0,t:1,g:2,p:3};
+for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
+tabs[map[id]].className='tab active';
+}
+function copyAddr(){
+navigator.clipboard.writeText(document.getElementById('addr').textContent);
+if(tg){tg.showAlert('Адрес скопирован!');}else{alert('Скопировано!');}
+}
+function openTg(){
+if(tg){tg.sendData(JSON.stringify({action:'contact'}));}
+}
+</script>
+</body>
+</html>
