@@ -585,6 +585,16 @@ navigator.clipboard.writeText(document.getElementById('addr').textContent);
 if(tg){tg.showAlert('Адрес скопирован!');}else{alert('Скопировано!');}
 }
 
+function orderProgram(){
+var msg='Привет! Хочу заказать программу тренировок. Изучил атлас мышц в боте — готов начать работу. Подскажи как оплатить?';
+var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
+if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);}else{window.open(url,'_blank');}
+}
+function orderPlan(){
+var msg='Привет! Изучил базу знаний по спортпиту в боте. Хочу получить персональный план питания и добавок под мои цели. Как оплатить?';
+var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
+if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);}else{window.open(url,'_blank');}
+}
 function openTg(){
 if(tg && tg.openTelegramLink){
 tg.openTelegramLink('https://t.me/Papa_Kult');
