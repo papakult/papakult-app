@@ -46,6 +46,7 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="tab" onclick="show('t')">Тренер</div>
 <div class="tab" onclick="show('g')">Фото</div>
 <div class="tab" onclick="show('p')">Оплата</div>
+<div class="tab" onclick="show('r')">До/После</div>
 </div>
 
 <div id="s" class="page active">
@@ -92,11 +93,25 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <button class="btn" onclick="openTg()">✉️ Написать после оплаты</button>
 </div>
 
+<div id="r" class="page">
+<div class="grid">
+<img src="https://i.imgur.com/QyYjOT2.jpeg">
+<img src="https://i.imgur.com/2WTI4fA.jpeg">
+<img src="https://i.imgur.com/7kShuDM.jpeg">
+<img src="https://i.imgur.com/3QafKTn.jpeg">
+<img src="https://i.imgur.com/ilMxTAh.jpeg">
+<img src="https://i.imgur.com/8eM8S0R.jpeg">
+<img src="https://i.imgur.com/aHkXJ8p.jpeg">
+<img src="https://i.imgur.com/9GRQv8X.jpeg">
+<img src="https://i.imgur.com/475CCxD.jpeg">
+<img src="https://i.imgur.com/r4SVRhY.jpeg">
+</div>
+</div>
 <script>
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
 function show(id){
-var ids=['s','t','g','p'];
+var ids=['s','t','g','p','r'];
 for(var i=0;i<ids.length;i++){
 document.getElementById(ids[i]).style.display='none';
 document.getElementById(ids[i]).className='page';
@@ -104,7 +119,7 @@ document.getElementById(ids[i]).className='page';
 document.getElementById(id).style.display='block';
 document.getElementById(id).className='page active';
 var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3};
+var map={s:0,t:1,g:2,p:3,r:4};
 for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
 tabs[map[id]].className='tab active';
 }
