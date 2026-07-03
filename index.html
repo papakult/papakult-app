@@ -459,7 +459,7 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="calc-row"><span>Жиры</span><span id="r-fat" style="color:#ff6600;font-weight:700;"></span></div>
 <div class="calc-row"><span>Углеводы</span><span id="r-carb" style="color:#ff6600;font-weight:700;"></span></div>
 <p style="font-size:11px;color:#666;margin-top:10px;">Для точного плана под твой организм — закажи диету у тренера.</p>
-<div class="btn" onclick="openTg()">Заказать диету</div>
+<div class="btn" onclick="goTo('pay')">Заказать диету</div>
 </div>
 </div>
 
@@ -586,7 +586,11 @@ if(tg){tg.showAlert('Адрес скопирован!');}else{alert('Скопи�
 }
 
 function openTg(){
-if(tg){tg.sendData(JSON.stringify({action:'contact'}));}
+if(tg && tg.openTelegramLink){
+tg.openTelegramLink('https://t.me/Papa_Kult');
+} else {
+window.open('https://t.me/Papa_Kult','_blank');
+}
 }
 
 function startTimer(){
