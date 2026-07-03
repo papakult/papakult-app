@@ -47,6 +47,7 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="tab" onclick="show('g')">Фото</div>
 <div class="tab" onclick="show('p')">Оплата</div>
 <div class="tab" onclick="show('r')">До/После</div>
+<div class="tab" onclick="show('f')">FAQ</div>
 </div>
 
 <div id="s" class="page active">
@@ -107,11 +108,22 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <img src="https://i.imgur.com/r4SVRhY.jpeg">
 </div>
 </div>
+<div id="f" class="page">
+<div class="ach"><h4>❓ С чего начать?</h4><p>Напиши мне в личку — я задам несколько вопросов о твоих целях, уровне подготовки и здоровье. После этого предложу подходящий формат работы.</p></div>
+<div class="ach"><h4>⏱ Сколько времени до результата?</h4><p>Первые изменения видны уже через 3-4 недели. Серьёзная трансформация — 3-6 месяцев при системной работе.</p></div>
+<div class="ach"><h4>🏋️ Работаете ли вы с новичками?</h4><p>Да, работаю с любым уровнем подготовки — от новичков до профессиональных спортсменов.</p></div>
+<div class="ach"><h4>🌍 Работаете ли вы с клиентами из других стран?</h4><p>Да, работаю онлайн с клиентами по всему миру. Оплата в USDT — удобно для любой страны.</p></div>
+<div class="ach"><h4>📋 Как проходит онлайн-ведение?</h4><p>Ты получаешь программу тренировок и питания. Каждый день отправляешь отчёт — я анализирую и даю рекомендации. Раз в неделю разбираем результаты.</p></div>
+<div class="ach"><h4>🧪 Зачем разбирать анализы?</h4><p>Многие проблемы с весом, энергией и восстановлением связаны с гормонами и дефицитами. Как специалист с медицинским образованием я вижу то, что обычный тренер пропустит.</p></div>
+<div class="ach"><h4>💊 Безопасны ли курсы стероидов?</h4><p>При грамотном подходе — да. Я составляю курс с учётом твоего здоровья, контролирую анализы до, во время и после. ПКТ включена.</p></div>
+<div class="ach"><h4>💳 Как оплатить?</h4><p>Оплата в USDT TRC-20. После оплаты напиши мне в личку — начинаем работу в течение 24 часов.</p></div>
+<button class="btn" onclick="openTg()">✉️ Задать вопрос тренеру</button>
+</div>
 <script>
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
 function show(id){
-var ids=['s','t','g','p','r'];
+var ids=['s','t','g','p','r','f'];
 for(var i=0;i<ids.length;i++){
 document.getElementById(ids[i]).style.display='none';
 document.getElementById(ids[i]).className='page';
@@ -119,7 +131,7 @@ document.getElementById(ids[i]).className='page';
 document.getElementById(id).style.display='block';
 document.getElementById(id).className='page active';
 var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3,r:4};
+var map={s:0,t:1,g:2,p:3,r:4,f:5};
 for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
 tabs[map[id]].className='tab active';
 }
