@@ -7,175 +7,192 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;}
+
+/* HERO */
 .hero{position:relative;height:200px;overflow:hidden;}
 .hero img{width:100%;height:100%;object-fit:cover;opacity:0.5;}
 .hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:20px;background:linear-gradient(transparent,#000);}
-.logo{font-size:32px;font-weight:900;color:#ff6600;}
-.subtitle{font-size:11px;color:#aaa;margin-top:4px;}
-.tabs{display:flex;background:#111;border-bottom:1px solid #333;}
-.tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;color:#555;cursor:pointer;border-bottom:3px solid transparent;font-weight:700;}
-.tab.active{color:#ff6600;border-bottom-color:#ff6600;}
-.page{padding:16px;display:none;}
+.logo{font-size:32px;font-weight:900;color:#ff6600;letter-spacing:4px;}
+.subtitle{font-size:11px;color:#aaa;margin-top:4px;letter-spacing:2px;}
+
+/* ГЛАВНОЕ МЕНЮ */
+.main-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px;}
+.nav-btn{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #222;border-radius:16px;padding:20px 16px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.nav-btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#ff6600,#ffaa00);}
+.nav-btn:active{transform:scale(0.97);}
+.nav-btn-icon{font-size:32px;margin-bottom:8px;}
+.nav-btn-label{font-size:13px;font-weight:700;color:#fff;}
+.nav-btn-sub{font-size:10px;color:#666;margin-top:3px;}
+.nav-btn-full{grid-column:1/-1;}
+
+/* СТРАНИЦЫ */
+.page{display:none;min-height:100vh;}
 .page.active{display:block;}
-.card{background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:10px;border-left:4px solid #ff6600;}
-.card h3{font-size:15px;margin-bottom:4px;}
-.card p{font-size:12px;color:#888;margin-bottom:8px;}
-.price{font-size:18px;font-weight:900;color:#ff6600;}
-.btn{display:block;width:100%;padding:14px;background:#ff6600;border:none;border-radius:10px;color:#000;font-size:15px;font-weight:800;cursor:pointer;margin-top:12px;}
-.ach{background:#1a1a1a;border-radius:10px;padding:12px;margin-bottom:8px;}
-.ach h4{color:#ff6600;font-size:12px;margin-bottom:4px;}
-.ach p{font-size:12px;color:#ccc;}
+.page-header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#0a0a0a;z-index:10;}
+.back-btn{width:36px;height:36px;background:#1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0;}
+.page-title{font-size:16px;font-weight:900;}
+.page-content{padding:16px;}
+
+/* ПОДМЕНЮ */
+.sub-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.sub-btn{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:14px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;color:#888;}
+.sub-btn.active{background:#ff6600;color:#000;border-color:#ff6600;}
+
+/* КАРТОЧКИ УСЛУГ */
+.service-card{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #222;border-radius:16px;padding:18px;margin-bottom:10px;cursor:pointer;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#ff6600,#ffaa00);}
+.service-card:active{transform:scale(0.98);}
+.service-icon{font-size:26px;margin-bottom:6px;}
+.service-name{font-size:15px;font-weight:700;margin-bottom:4px;}
+.service-desc{font-size:12px;color:#888;line-height:1.4;margin-bottom:10px;}
+.service-price{font-size:20px;font-weight:900;color:#ff6600;}
+.service-price span{font-size:12px;color:#666;font-weight:400;}
+
+/* ТАЙМЕР */
+.timer-box{background:linear-gradient(135deg,#1a0000,#0a0a0a);border:1px solid #ff3300;border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;}
+.timer-title{font-size:10px;color:#ff3300;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.timer-digits{display:flex;justify-content:center;gap:6px;}
+.timer-block{background:#0a0a0a;border-radius:8px;padding:6px 10px;min-width:48px;}
+.timer-num{font-size:22px;font-weight:900;color:#ff6600;}
+.timer-label{font-size:9px;color:#555;text-transform:uppercase;}
+
+/* СЧЁТЧИКИ */
+.counters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.counter{background:#1a1a1a;border-radius:12px;padding:14px 8px;text-align:center;border:1px solid #222;}
+.counter-num{font-size:24px;font-weight:900;color:#ff6600;}
+.counter-label{font-size:10px;color:#666;margin-top:3px;}
+
+/* ТРЕНЕР */
+.trainer-img{width:100%;height:300px;object-fit:contain;background:#111;border-radius:14px;margin-bottom:14px;}
+.trainer-name{font-size:20px;font-weight:900;background:linear-gradient(135deg,#ff6600,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+.trainer-bio{font-size:13px;color:#aaa;line-height:1.7;margin-bottom:12px;}
+.ach{background:#1a1a1a;border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+.ach h4{color:#ff6600;font-size:12px;margin-bottom:4px;font-weight:700;}
+.ach p{font-size:12px;color:#ccc;line-height:1.5;}
+
+/* ГАЛЕРЕЯ */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;}
-.addr{background:#1a1a1a;border-radius:10px;padding:16px;margin-top:12px;}
-.addr h4{color:#ff6600;margin-bottom:8px;}
-.addr p{font-size:11px;color:#888;word-break:break-all;font-family:monospace;}
 
-.goal-screen{padding:20px 16px;min-height:100vh;background:#0a0a0a;}
-.goal-title{font-size:22px;font-weight:900;color:#fff;text-align:center;margin-bottom:6px;}
-.goal-sub{font-size:13px;color:#888;text-align:center;margin-bottom:20px;}
-.goal-card{position:relative;border-radius:16px;overflow:hidden;margin-bottom:12px;cursor:pointer;height:140px;}
-.goal-card img{width:100%;height:100%;object-fit:cover;opacity:0.6;}
-.goal-card-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,0.8));}
-.goal-card h3{font-size:18px;font-weight:900;color:#fff;margin-bottom:4px;}
-.goal-card p{font-size:12px;color:#aaa;}
-.goal-card:active{transform:scale(0.98);}
-@keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes countUp {from{opacity:0;}to{opacity:1;}}
-.page.active .card, .page.active .ach {animation:fadeIn 0.4s ease forwards;}
-.page.active .card:nth-child(1){animation-delay:0.05s;}
-.page.active .card:nth-child(2){animation-delay:0.1s;}
-.page.active .card:nth-child(3){animation-delay:0.15s;}
-.page.active .card:nth-child(4){animation-delay:0.2s;}
-.page.active .card:nth-child(5){animation-delay:0.25s;}
-.page.active .card:nth-child(6){animation-delay:0.3s;}
-.page.active .card:nth-child(7){animation-delay:0.35s;}
-.atlas-body{position:relative;width:100%;max-width:320px;margin:0 auto 16px;}
-.atlas-svg{width:100%;}
-.muscle-group{cursor:pointer;transition:all 0.2s;}
-.muscle-group:hover{filter:brightness(1.3);}
-.muscle-group.active{filter:brightness(1.5);}
-.atlas-tabs{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;}
-.atlas-tab{flex-shrink:0;padding:8px 14px;background:#1a1a1a;border-radius:20px;font-size:12px;color:#888;cursor:pointer;border:1px solid #222;white-space:nowrap;}
-.atlas-tab.active{background:#ff6600;color:#000;font-weight:700;border-color:#ff6600;}
-.muscle-detail{display:none;}
-.muscle-detail.active{display:block;}
-.exercise-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:10px;border:1px solid #222;}
-.exercise-img{width:100%;height:140px;object-fit:cover;}
-.exercise-info{padding:12px;}
-.exercise-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
-.exercise-sets{font-size:11px;color:#ff6600;margin-bottom:6px;}
-.exercise-desc{font-size:12px;color:#888;line-height:1.5;}
-.muscle-title{font-size:16px;font-weight:900;color:#ff6600;margin-bottom:4px;}
-.muscle-sub{font-size:12px;color:#888;margin-bottom:12px;}
-.kb-section{margin-bottom:20px;}
-.kb-section-title{font-size:11px;color:#ff6600;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.kb-card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #222;transition:all 0.2s;}
-.kb-card:active{background:#222;}
-.kb-card-header{display:flex;justify-content:space-between;align-items:center;}
-.kb-card h4{font-size:14px;font-weight:700;color:#fff;}
-.kb-card-icon{font-size:20px;}
-.kb-card-arrow{color:#ff6600;font-size:16px;transition:transform 0.3s;}
-.kb-card.open .kb-card-arrow{transform:rotate(90deg);}
-.kb-card-body{display:none;margin-top:12px;border-top:1px solid #2a2a2a;padding-top:12px;}
-.kb-card.open .kb-card-body{display:block;}
-.kb-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #222;}
-.kb-item:last-child{border:none;margin-bottom:0;padding-bottom:0;}
-.kb-item-icon{font-size:22px;flex-shrink:0;}
-.kb-item-name{font-size:13px;font-weight:700;color:#ff6600;margin-bottom:3px;}
-.kb-item-dose{font-size:11px;color:#888;margin-bottom:3px;}
-.kb-item-desc{font-size:12px;color:#ccc;line-height:1.5;}
-.kb-tag{display:inline-block;background:#ff6600;color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:4px;margin-bottom:4px;}
-.kb-tag.blue{background:#0066ff;}
-.kb-tag.green{background:#00aa44;}
-.timer-box{background:linear-gradient(135deg,#1a0000,#1a0a00);border:1px solid #ff3300;border-radius:14px;padding:16px;margin:0 0 16px 0;text-align:center;}
-.timer-title{font-size:11px;color:#ff3300;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-.timer-digits{display:flex;justify-content:center;gap:8px;}
-.timer-block{background:#0a0a0a;border-radius:8px;padding:8px 12px;min-width:52px;}
-.timer-num{font-size:24px;font-weight:900;color:#ff6600;}
-.timer-label{font-size:9px;color:#666;text-transform:uppercase;}
-.calc-box{background:#1a1a1a;border-radius:14px;padding:16px;margin-bottom:16px;}
-.calc-title{font-size:13px;color:#ff6600;font-weight:700;margin-bottom:12px;}
-.calc-input{width:100%;background:#111;border:1px solid #333;border-radius:8px;padding:10px 12px;color:#fff;font-size:14px;margin-bottom:8px;}
-.calc-result{background:#111;border-radius:10px;padding:12px;margin-top:10px;display:none;}
-.calc-result h4{color:#ff6600;font-size:13px;margin-bottom:8px;}
-.calc-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222;font-size:12px;}
+/* КНОПКА */
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#ff6600,#ffaa00);border:none;border-radius:12px;color:#000;font-size:15px;font-weight:800;cursor:pointer;margin-top:12px;text-align:center;}
+.btn-outline{background:transparent;border:1px solid #ff6600;color:#ff6600;}
+
+/* ОПЛАТА */
+.usdt-box{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:18px;margin-bottom:12px;}
+.usdt-title{font-size:13px;color:#ff6600;font-weight:700;margin-bottom:8px;}
+.usdt-addr{font-size:11px;color:#888;word-break:break-all;line-height:1.6;font-family:monospace;background:#111;padding:10px;border-radius:8px;margin-bottom:10px;}
+.copy-btn{display:block;width:100%;padding:11px;background:#222;border:1px solid #333;border-radius:10px;color:#ff6600;font-size:13px;font-weight:700;cursor:pointer;text-align:center;}
+
+/* ОБУЧЕНИЕ */
+.learn-card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #222;}
+.learn-card:active{background:#222;}
+.learn-header{display:flex;justify-content:space-between;align-items:center;}
+.learn-card h4{font-size:14px;font-weight:700;}
+.learn-arrow{color:#ff6600;font-size:18px;transition:transform 0.3s;}
+.learn-card.open .learn-arrow{transform:rotate(90deg);}
+.learn-body{display:none;margin-top:12px;border-top:1px solid #2a2a2a;padding-top:12px;}
+.learn-card.open .learn-body{display:block;}
+.learn-item{display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #1e1e1e;}
+.learn-item:last-child{border:none;margin:0;padding:0;}
+.learn-item-icon{font-size:22px;flex-shrink:0;}
+.learn-item-name{font-size:13px;font-weight:700;color:#ff6600;margin-bottom:2px;}
+.learn-item-dose{font-size:11px;color:#888;margin-bottom:4px;}
+.learn-item-desc{font-size:12px;color:#ccc;line-height:1.5;}
+.tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700;margin:2px 2px 0 0;}
+.tag-orange{background:#ff6600;color:#000;}
+.tag-blue{background:#0066ff;color:#fff;}
+.tag-green{background:#00aa44;color:#fff;}
+.tip-box{background:#111;border-radius:8px;padding:10px;margin-top:8px;}
+.tip-title{font-size:11px;color:#ff6600;font-weight:700;margin-bottom:4px;}
+.tip-text{font-size:12px;color:#aaa;}
+
+/* КАЛЬКУЛЯТОР */
+.calc-input{width:100%;background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;color:#fff;font-size:14px;margin-bottom:10px;outline:none;}
+.calc-result{background:#1a1a1a;border-radius:12px;padding:14px;margin-top:12px;display:none;}
+.calc-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222;font-size:13px;}
 .calc-row:last-child{border:none;}
-.quiz-box{background:#1a1a1a;border-radius:14px;padding:16px;margin-bottom:16px;}
-.quiz-title{font-size:13px;color:#ff6600;font-weight:700;margin-bottom:12px;}
-.quiz-btn{display:block;width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;margin-bottom:8px;text-align:left;}
-.quiz-btn:active{background:#ff6600;color:#000;}
-.counter-box{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 0;}
-.counter{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #333;border-radius:12px;padding:16px 8px;text-align:center;}
-.counter-num{font-size:28px;font-weight:900;color:#ff6600;}
-.counter-label{font-size:10px;color:#666;margin-top:4px;}
+
+/* ТЕСТ */
+.quiz-option{display:block;width:100%;padding:12px 14px;background:#1a1a1a;border:1px solid #222;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;margin-bottom:8px;text-align:left;}
+.quiz-option:active{background:#ff6600;color:#000;}
+
+/* АТЛАС */
+.muscle-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;}
+.muscle-tab{flex-shrink:0;padding:7px 12px;background:#1a1a1a;border-radius:20px;font-size:11px;color:#888;cursor:pointer;border:1px solid #222;white-space:nowrap;}
+.muscle-tab.active{background:#ff6600;color:#000;font-weight:700;border-color:#ff6600;}
+.muscle-section{display:none;}
+.muscle-section.active{display:block;}
+.chest-parts{display:flex;gap:6px;margin-bottom:12px;}
+.chest-part{flex:1;padding:8px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#888;font-size:11px;cursor:pointer;text-align:center;font-weight:700;}
+.chest-part.active{background:#ff6600;color:#000;border-color:#ff6600;}
+.exercise-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:10px;border:1px solid #222;}
+.exercise-img{width:100%;height:130px;object-fit:cover;}
+.exercise-info{padding:12px;}
+.exercise-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+.exercise-sets{font-size:11px;color:#ff6600;margin-bottom:5px;}
+.exercise-desc{font-size:11px;color:#888;line-height:1.5;}
+
+/* FAQ */
+.faq-card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #222;}
+.faq-q{font-size:13px;font-weight:700;color:#ff6600;display:flex;justify-content:space-between;align-items:center;}
+.faq-arrow{font-size:16px;transition:transform 0.3s;}
+.faq-card.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{display:none;font-size:12px;color:#aaa;line-height:1.6;margin-top:10px;border-top:1px solid #222;padding-top:10px;}
+.faq-card.open .faq-a{display:block;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.page-content > *{animation:fadeIn 0.3s ease forwards;}
 </style>
 </head>
 <body>
-<div id="goal-screen" class="goal-screen">
-<div style="text-align:center;padding:20px 0 10px;">
-<div style="font-size:36px;font-weight:900;color:#ff6600;">PAPA_KULT</div>
-<div style="font-size:11px;color:#aaa;letter-spacing:2px;margin-top:4px;">АНДРЕЙ ШЕЛЕСТ • ЧЕМПИОН МИРА</div>
-</div>
-<div class="goal-title" style="margin-top:16px;">Какая твоя цель?</div>
-<div class="goal-sub">Выбери — и я покажу что тебе нужно</div>
 
-<div class="goal-card" onclick="selectGoal('mass')">
-<img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80">
-<div class="goal-card-overlay">
-<h3>💪 Набрать массу</h3>
-<p>Стать больше и сильнее</p>
-</div>
-</div>
-
-<div class="goal-card" onclick="selectGoal('cut')">
-<img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80">
-<div class="goal-card-overlay">
-<h3>🔥 Похудеть</h3>
-<p>Сжечь жир и стать стройнее</p>
-</div>
-</div>
-
-<div class="goal-card" onclick="selectGoal('relief')">
-<img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80">
-<div class="goal-card-overlay">
-<h3>⚡ Рельеф</h3>
-<p>Красивое тело с кубиками</p>
-</div>
-</div>
-
-<div class="goal-card" onclick="selectGoal('strength')">
-<img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80">
-<div class="goal-card-overlay">
-<h3>🏆 Стать сильнее</h3>
-<p>Рекорды и максимальная сила</p>
-</div>
-</div>
-</div>
-
-<div id="main-app" style="display:none;">
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<div id="home" class="page active">
 <div class="hero">
 <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80">
 <div class="hero-overlay">
 <div class="logo">PAPA_KULT</div>
-<div class="subtitle">Андрей Шелест • Чемпион Мира</div>
+<div class="subtitle">АНДРЕЙ ШЕЛЕСТ • ЧЕМПИОН МИРА</div>
 </div>
 </div>
-<div class="tabs">
-<div class="tab active" onclick="show('s')">Услуги</div>
-<div class="tab" onclick="show('t')">Тренер</div>
-<div class="tab" onclick="show('g')">Фото</div>
-<div class="tab" onclick="show('p')">Оплата</div>
-<div class="tab" onclick="show('r')">До/После</div>
-<div class="tab" onclick="show('f')">FAQ</div>
-<div class="tab" onclick="show('c')">Калькулятор</div>
-<div class="tab" onclick="show('q')">Тест</div>
-<div class="tab" onclick="show('k')">База</div>
-<div class="tab" onclick="show('a')">Атлас</div>
+<div class="main-nav">
+<div class="nav-btn" onclick="goTo('services')">
+<div class="nav-btn-icon">💰</div>
+<div class="nav-btn-label">Услуги</div>
+<div class="nav-btn-sub">6 программ</div>
+</div>
+<div class="nav-btn" onclick="goTo('trainer')">
+<div class="nav-btn-icon">🏆</div>
+<div class="nav-btn-label">Тренер</div>
+<div class="nav-btn-sub">Достижения</div>
+</div>
+<div class="nav-btn" onclick="goTo('media')">
+<div class="nav-btn-icon">📸</div>
+<div class="nav-btn-label">Медиа</div>
+<div class="nav-btn-sub">Фото и результаты</div>
+</div>
+<div class="nav-btn" onclick="goTo('learn')">
+<div class="nav-btn-icon">🧠</div>
+<div class="nav-btn-label">Обучение</div>
+<div class="nav-btn-sub">База знаний</div>
+</div>
+<div class="nav-btn nav-btn-full" onclick="goTo('pay')">
+<div class="nav-btn-icon">💳</div>
+<div class="nav-btn-label">Оплата USDT</div>
+<div class="nav-btn-sub">TRC-20 • Быстро и безопасно</div>
+</div>
+</div>
 </div>
 
-<div id="s" class="page active">
+<!-- УСЛУГИ -->
+<div id="services" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">💰 Услуги</div>
+</div>
+<div class="page-content">
 <div class="timer-box">
 <div class="timer-title">🔥 Специальная цена — акция заканчивается через</div>
 <div class="timer-digits">
@@ -184,34 +201,100 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="timer-block"><div class="timer-num" id="ts">00</div><div class="timer-label">секунд</div></div>
 </div>
 </div>
-<div class="counter-box">
+<div class="counters">
 <div class="counter"><div class="counter-num" data-target="500">0</div><div class="counter-label">Клиентов</div></div>
 <div class="counter"><div class="counter-num" data-target="20">0</div><div class="counter-label">Лет опыта</div></div>
 <div class="counter"><div class="counter-num" data-target="100">0</div><div class="counter-label">Чемпионов</div></div>
 </div>
-<div class="card"><h3>🗣 Консультация</h3><p>Онлайн 60 минут. Научный подход</p><div class="price">120 USDT</div></div>
-<div class="card"><h3>📋 Программа тренировок</h3><p>Индивидуальная на 8-12 недель</p><div class="price">150 USDT</div></div>
-<div class="card"><h3>🥗 Составление диеты</h3><p>КБЖУ, меню, добавки</p><div class="price">100 USDT</div></div>
-<div class="card"><h3>🧪 Разбор анализов</h3><p>Кровь и гормоны. Медобразование</p><div class="price">150 USDT</div></div>
-<div class="card"><h3>💊 Курс стероидов</h3><p>Научный подбор. ПКТ. 18+</p><div class="price">120 USDT</div></div>
-<div class="card"><h3>🎯 Ведение СТАРТ</h3><p>Программа тренировок + базовый контроль питания + связь 3 раза в неделю</p><div class="price">250 USDT</div></div>
-<div class="card"><h3>🔥 Ведение PRO</h3><p>Тренировки + питание + ежедневная связь + корректировка программы</p><div class="price">350 USDT</div></div>
-<div class="card"><h3>💎 Ведение ELITE</h3><p>Всё включено + разбор анализов + индивидуальный курс + поддержка 24/7</p><div class="price">500 USDT</div></div>
-<div class="card" onclick="openTg()"><h3>🏟 Персональная тренировка</h3><p>В фитнес-центре</p><div class="price" style="font-size:14px;">Написать тренеру →</div></div>
+<div class="service-card" onclick="buyService('Консультация','120')">
+<div class="service-icon">🗣</div>
+<div class="service-name">Консультация</div>
+<div class="service-desc">Онлайн 60 минут. Научный и тренерский подход</div>
+<div class="service-price">120 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Программа тренировок','150')">
+<div class="service-icon">📋</div>
+<div class="service-name">Программа тренировок</div>
+<div class="service-desc">Индивидуальная на 8-12 недель. Методика чемпиона мира</div>
+<div class="service-price">150 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Составление диеты','100')">
+<div class="service-icon">🥗</div>
+<div class="service-name">Составление диеты</div>
+<div class="service-desc">Расчёт КБЖУ, меню, спортивные добавки</div>
+<div class="service-price">100 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Разбор анализов','150')">
+<div class="service-icon">🧪</div>
+<div class="service-name">Разбор анализов</div>
+<div class="service-desc">Кровь и гормоны. Специалист с медицинским образованием</div>
+<div class="service-price">150 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Курс стероидов','120')">
+<div class="service-icon">💊</div>
+<div class="service-name">Курс стероидов</div>
+<div class="service-desc">Научный подбор препаратов, ПКТ включена. 18+</div>
+<div class="service-price">120 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Ведение СТАРТ','250')">
+<div class="service-icon">🎯</div>
+<div class="service-name">Ведение СТАРТ</div>
+<div class="service-desc">Программа + базовый контроль питания + связь 3 раза в неделю</div>
+<div class="service-price">250 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Ведение PRO','350')">
+<div class="service-icon">🔥</div>
+<div class="service-name">Ведение PRO</div>
+<div class="service-desc">Тренировки + питание + ежедневная связь + корректировка</div>
+<div class="service-price">350 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="buyService('Ведение ELITE','500')">
+<div class="service-icon">💎</div>
+<div class="service-name">Ведение ELITE</div>
+<div class="service-desc">Всё включено + анализы + индивидуальный курс + поддержка 24/7</div>
+<div class="service-price">500 <span>USDT</span></div>
+</div>
+<div class="service-card" onclick="openTg()">
+<div class="service-icon">🏟</div>
+<div class="service-name">Персональная тренировка</div>
+<div class="service-desc">В фитнес-центре. Индивидуальный подход</div>
+<div class="service-price" style="font-size:14px;color:#ff6600;">Написать тренеру →</div>
+</div>
+</div>
 </div>
 
-<div id="t" class="page">
-<img src="https://i.imgur.com/PAW4DMW.jpeg" style="width:100%;height:280px;object-fit:contain;background:#111;border-radius:12px;margin-bottom:12px;">
-<div class="ach"><h4>🏆 Чемпион Мира и Рекордсмен Мира</h4><p>Пауэрлифтинг НАП. МСМК в 2 дисциплинах (2010-2023)</p></div>
-<div class="ach"><h4>🥇 Бодибилдинг</h4><p>Абсолютный чемпион Сибири. Топ-3 Чемпионат России. Arnold Classic Испания</p></div>
+<!-- ТРЕНЕР -->
+<div id="trainer" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">🏆 Тренер</div>
+</div>
+<div class="page-content">
+<img class="trainer-img" src="https://i.imgur.com/PAW4DMW.jpeg">
+<div class="trainer-name">Андрей Шелест</div>
+<div class="trainer-bio">Чемпион мира и специалист с высшим медицинским образованием. Более 20 лет в спорте.</div>
+<div class="ach"><h4>🏆 Чемпион Мира и Рекордсмен Мира</h4><p>Пауэрлифтинг НАП. Мастер спорта международного класса в 2 дисциплинах (2010-2023)</p></div>
+<div class="ach"><h4>🥇 Бодибилдинг</h4><p>Абсолютный чемпион Сибири. Топ-3 Чемпионат России. Участник Arnold Classic Испания. Чемпион Siberian Power Show</p></div>
 <div class="ach"><h4>🎓 Медицинское образование</h4><p>Новосибирский Государственный Медицинский Университет</p></div>
 <div class="ach"><h4>🏅 Спортивное образование</h4><p>Национальный Университет Фитнеса</p></div>
 <div class="ach"><h4>💪 Тренер</h4><p>Подготовил 100+ спортсменов на чемпионатах по бодибилдингу</p></div>
 <div class="ach"><h4>🎤 Организатор и эксперт</h4><p>Провёл 70+ семинаров. Разработчик методик питания</p></div>
-<button class="btn" onclick="openTg()">✉️ Написать тренеру</button>
+<div class="btn" onclick="openTg()">✉️ Написать тренеру</div>
+</div>
 </div>
 
-<div id="g" class="page">
+<!-- МЕДИА -->
+<div id="media" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">📸 Медиа</div>
+</div>
+<div class="page-content">
+<div class="sub-menu">
+<div class="sub-btn active" onclick="showMedia('gallery')">🏋️ Зал и тренировки</div>
+<div class="sub-btn" onclick="showMedia('before')">💪 До / После</div>
+</div>
+<div id="media-gallery">
 <div class="grid">
 <img src="https://i.imgur.com/qg4AQaa.jpeg">
 <img src="https://i.imgur.com/zlgERMv.jpeg">
@@ -221,18 +304,7 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <img src="https://i.imgur.com/wtFcWEu.jpeg">
 </div>
 </div>
-
-<div id="p" class="page">
-<div class="addr">
-<h4>💳 USDT TRC-20</h4>
-<p id="addr">TES8Z2VYduByHczLBj87vTqJDECGbFdEyH</p>
-<button class="btn" onclick="copyAddr()" style="margin-top:10px;background:#333;color:#ff6600;">📋 Скопировать адрес</button>
-</div>
-<p style="margin-top:12px;font-size:12px;color:#666;">Отправляй только USDT в сети TRC-20. После оплаты напиши тренеру.</p>
-<button class="btn" onclick="openTg()">✉️ Написать после оплаты</button>
-</div>
-
-<div id="r" class="page">
+<div id="media-before" style="display:none;">
 <div class="grid">
 <img src="https://i.imgur.com/QyYjOT2.jpeg">
 <img src="https://i.imgur.com/2WTI4fA.jpeg">
@@ -246,22 +318,123 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <img src="https://i.imgur.com/r4SVRhY.jpeg">
 </div>
 </div>
-<div id="f" class="page">
-<div class="ach"><h4>❓ С чего начать?</h4><p>Напиши мне в личку — я задам несколько вопросов о твоих целях, уровне подготовки и здоровье. После этого предложу подходящий формат работы.</p></div>
-<div class="ach"><h4>⏱ Сколько времени до результата?</h4><p>Первые изменения видны уже через 3-4 недели. Серьёзная трансформация — 3-6 месяцев при системной работе.</p></div>
-<div class="ach"><h4>🏋️ Работаете ли вы с новичками?</h4><p>Да, работаю с любым уровнем подготовки — от новичков до профессиональных спортсменов.</p></div>
-<div class="ach"><h4>🌍 Работаете ли вы с клиентами из других стран?</h4><p>Да, работаю онлайн с клиентами по всему миру. Оплата в USDT — удобно для любой страны.</p></div>
-<div class="ach"><h4>📋 Как проходит онлайн-ведение?</h4><p>Ты получаешь программу тренировок и питания. Каждый день отправляешь отчёт — я анализирую и даю рекомендации. Раз в неделю разбираем результаты.</p></div>
-<div class="ach"><h4>🧪 Зачем разбирать анализы?</h4><p>Многие проблемы с весом, энергией и восстановлением связаны с гормонами и дефицитами. Как специалист с медицинским образованием я вижу то, что обычный тренер пропустит.</p></div>
-<div class="ach"><h4>💊 Безопасны ли курсы стероидов?</h4><p>При грамотном подходе — да. Я составляю курс с учётом твоего здоровья, контролирую анализы до, во время и после. ПКТ включена.</p></div>
-<div class="ach"><h4>💳 Как оплатить?</h4><p>Оплата в USDT TRC-20. После оплаты напиши мне в личку — начинаем работу в течение 24 часов.</p></div>
-<button class="btn" onclick="openTg()">✉️ Задать вопрос тренеру</button>
 </div>
 </div>
 
-<div id="c" class="page">
-<div class="calc-box">
-<div class="calc-title">🧮 Калькулятор КБЖУ</div>
+<!-- ОБУЧЕНИЕ -->
+<div id="learn" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">🧠 Обучение</div>
+</div>
+<div class="page-content">
+<div class="sub-menu">
+<div class="sub-btn active" onclick="showLearn('base')">📚 База знаний</div>
+<div class="sub-btn" onclick="showLearn('atlas')">💪 Атлас мышц</div>
+<div class="sub-btn" onclick="showLearn('calc')">🧮 Калькулятор</div>
+<div class="sub-btn" onclick="showLearn('quiz')">🎯 Тест</div>
+</div>
+
+<!-- База знаний -->
+<div id="learn-base">
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700;">💊 Спортпит для набора</div>
+<div class="learn-card" onclick="toggleLearn(this)">
+<div class="learn-header"><h4>🥛 Протеин</h4><span class="learn-arrow">›</span></div>
+<div class="learn-body">
+<div class="learn-item"><div class="learn-item-icon">⚡</div><div><div class="learn-item-name">Сывороточный (Whey)</div><div class="learn-item-dose">25-40г после тренировки</div><div class="learn-item-desc">Быстро усваивается, останавливает катаболизм после тренировки.</div><div><span class="tag tag-orange">Набор</span><span class="tag tag-green">Восстановление</span></div></div></div>
+<div class="learn-item"><div class="learn-item-icon">🌙</div><div><div class="learn-item-name">Казеин</div><div class="learn-item-dose">30-40г перед сном</div><div class="learn-item-desc">Медленный протеин. Питает мышцы 6-8 часов пока спишь.</div><div><span class="tag tag-blue">Ночью</span></div></div></div>
+</div>
+</div>
+<div class="learn-card" onclick="toggleLearn(this)">
+<div class="learn-header"><h4>⚡ Креатин</h4><span class="learn-arrow">›</span></div>
+<div class="learn-body">
+<div class="learn-item"><div class="learn-item-icon">💪</div><div><div class="learn-item-name">Моногидрат</div><div class="learn-item-dose">5г каждый день</div><div class="learn-item-desc">Самая изученная добавка. +10-15% к силе, +2-3кг мышц за месяц.</div><div><span class="tag tag-orange">Сила</span><span class="tag tag-green">Безопасно</span></div></div></div>
+<div class="tip-box"><div class="tip-title">💡 Совет тренера:</div><div class="tip-text">Запивай тёплой водой или соком — лучше усваивается.</div></div>
+</div>
+</div>
+<div class="learn-card" onclick="toggleLearn(this)">
+<div class="learn-header"><h4>🧬 BCAA</h4><span class="learn-arrow">›</span></div>
+<div class="learn-body">
+<div class="learn-item"><div class="learn-item-icon">🔬</div><div><div class="learn-item-name">BCAA 2:1:1</div><div class="learn-item-dose">5-10г до и после тренировки</div><div class="learn-item-desc">Защищают мышцы от разрушения. Важны при тренировках натощак.</div><div><span class="tag tag-green">Защита</span></div></div></div>
+</div>
+</div>
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin:16px 0 12px;font-weight:700;">🔥 Спортпит для похудения</div>
+<div class="learn-card" onclick="toggleLearn(this)">
+<div class="learn-header"><h4>🚀 Жиросжигатели</h4><span class="learn-arrow">›</span></div>
+<div class="learn-body">
+<div class="learn-item"><div class="learn-item-icon">🌡️</div><div><div class="learn-item-name">Термодженики</div><div class="learn-item-dose">Утром и до тренировки</div><div class="learn-item-desc">Ускоряют метаболизм. НЕ принимай после 16:00 — нарушают сон.</div><div><span class="tag tag-orange">Жиросжигание</span></div></div></div>
+<div class="learn-item"><div class="learn-item-icon">🍵</div><div><div class="learn-item-name">L-Карнитин</div><div class="learn-item-dose">1500-3000мг за 30 мин до кардио</div><div class="learn-item-desc">Работает ТОЛЬКО с кардио. Без тренировок бесполезен.</div><div><span class="tag tag-green">Безопасно</span></div></div></div>
+</div>
+</div>
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin:16px 0 12px;font-weight:700;">😴 Восстановление</div>
+<div class="learn-card" onclick="toggleLearn(this)">
+<div class="learn-header"><h4>🌙 Добавки для сна</h4><span class="learn-arrow">›</span></div>
+<div class="learn-body">
+<div class="learn-item"><div class="learn-item-icon">😴</div><div><div class="learn-item-name">Магний</div><div class="learn-item-dose">400мг перед сном</div><div class="learn-item-desc">Расслабляет мышцы, улучшает сон, снижает кортизол.</div><div><span class="tag tag-green">Сон</span></div></div></div>
+<div class="learn-item"><div class="learn-item-icon">☀️</div><div><div class="learn-item-name">Витамин D3 + K2</div><div class="learn-item-dose">5000 МЕ D3 + 100мкг K2</div><div class="learn-item-desc">90% людей в дефиците. Критичен для тестостерона и иммунитета.</div><div><span class="tag tag-blue">Тестостерон</span></div></div></div>
+<div class="learn-item"><div class="learn-item-icon">🐟</div><div><div class="learn-item-name">Омега-3</div><div class="learn-item-dose">2-3г EPA+DHA в день</div><div class="learn-item-desc">Снижает воспаление, ускоряет восстановление, улучшает суставы.</div><div><span class="tag tag-green">Суставы</span></div></div></div>
+</div>
+</div>
+<div class="btn" onclick="openTg()" style="margin-top:16px;">💊 Получить персональный план</div>
+</div>
+
+<!-- Атлас мышц -->
+<div id="learn-atlas" style="display:none;">
+<div class="muscle-tabs">
+<div class="muscle-tab active" onclick="showMuscle(this,'chest')">💪 Грудь</div>
+<div class="muscle-tab" onclick="showMuscle(this,'back')">🔙 Спина</div>
+<div class="muscle-tab" onclick="showMuscle(this,'legs')">🦵 Ноги</div>
+<div class="muscle-tab" onclick="showMuscle(this,'shoulders')">🎯 Плечи</div>
+<div class="muscle-tab" onclick="showMuscle(this,'arms')">💪 Руки</div>
+<div class="muscle-tab" onclick="showMuscle(this,'abs')">🏋️ Пресс</div>
+</div>
+<div class="muscle-section active" id="ms-chest">
+<div class="chest-parts">
+<div class="chest-part active" onclick="showChest(this,'upper')">Верх</div>
+<div class="chest-part" onclick="showChest(this,'mid')">Середина</div>
+<div class="chest-part" onclick="showChest(this,'lower')">Низ</div>
+</div>
+<div id="cp-upper">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим на наклонной скамье</div><div class="exercise-sets">4×8-12</div><div class="exercise-desc">Угол 30-45°. Хват чуть шире плеч. Медленно вниз — взрывной жим вверх.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим гантелей на наклонной</div><div class="exercise-sets">3×10-15</div><div class="exercise-desc">Каждая рука независимо. Максимальное растяжение в нижней точке.</div></div></div>
+</div>
+<div id="cp-mid" style="display:none;">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим штанги лёжа</div><div class="exercise-sets">4×6-10</div><div class="exercise-desc">Базовое №1. Лопатки сведены. Штанга на нижнюю грудь.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка гантелей</div><div class="exercise-sets">3×12-15</div><div class="exercise-desc">Максимальное растяжение в нижней точке — здесь растут мышцы.</div></div></div>
+</div>
+<div id="cp-lower" style="display:none;">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим на скамье вниз</div><div class="exercise-sets">4×8-12</div><div class="exercise-desc">Угол -15-30°. Прорабатывает нижний пучок груди.</div></div></div>
+</div>
+</div>
+<div class="muscle-section" id="ms-back">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Подтягивания широким хватом</div><div class="exercise-sets">4×максимум</div><div class="exercise-desc">Лучшее для ширины спины. Тяни лопатки вниз и назад.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Становая тяга</div><div class="exercise-sets">4×5-8</div><div class="exercise-desc">Король упражнений. Прямая спина обязательно.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Тяга штанги в наклоне</div><div class="exercise-sets">4×8-12</div><div class="exercise-desc">Корпус параллельно полу. Тяни к животу. Для толщины спины.</div></div></div>
+</div>
+<div class="muscle-section" id="ms-legs">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Приседания со штангой</div><div class="exercise-sets">4×8-12</div><div class="exercise-desc">Спина прямая, колени над носками. До параллели с полом.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Румынская тяга</div><div class="exercise-sets">3×10-12</div><div class="exercise-desc">Бицепс бедра и ягодицы. Чувствуй растяжение задней поверхности.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим ногами</div><div class="exercise-sets">4×12-15</div><div class="exercise-desc">Ноги широко — больше ягодиц. Узко — больше квадрицепс.</div></div></div>
+</div>
+<div class="muscle-section" id="ms-shoulders">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим штанги стоя</div><div class="exercise-sets">4×8-12</div><div class="exercise-desc">Основное для плеч. Не прогибай поясницу.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка в стороны</div><div class="exercise-sets">4×15-20</div><div class="exercise-desc">Средний пучок — делает плечи широкими. До уровня плеч.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка в наклоне</div><div class="exercise-sets">3×15</div><div class="exercise-desc">Задний пучок. Убирает сутулость, даёт объём сзади.</div></div></div>
+</div>
+<div class="muscle-section" id="ms-arms">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Подъём штанги на бицепс</div><div class="exercise-sets">4×10-12</div><div class="exercise-desc">Локти прижаты. Сжимай бицепс вверху. Опускай медленно.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим узким хватом</div><div class="exercise-sets">4×10-12</div><div class="exercise-desc">Трицепс = 2/3 руки. Качай его больше чем бицепс.</div></div></div>
+</div>
+<div class="muscle-section" id="ms-abs">
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Скручивания</div><div class="exercise-sets">4×20-30</div><div class="exercise-desc">Не тяни шею. Скручивайся до сокращения пресса.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Планка</div><div class="exercise-sets">4×45-60 сек</div><div class="exercise-desc">Тело прямое. Не поднимай таз. Дыши равномерно.</div></div></div>
+<div class="tip-box" style="margin-top:8px;"><div class="tip-title">💡 Правда о прессе:</div><div class="tip-text">Пресс делается на кухне. 80% — это питание. Сначала диета, потом упражнения.</div></div>
+</div>
+<div class="btn" onclick="openTg()" style="margin-top:16px;">📋 Заказать программу</div>
+</div>
+
+<!-- Калькулятор -->
+<div id="learn-calc" style="display:none;">
 <select id="calc-goal" class="calc-input">
 <option value="">Выбери цель...</option>
 <option value="cut">Похудение</option>
@@ -272,155 +445,168 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <input class="calc-input" id="calc-weight" type="number" placeholder="Вес (кг)">
 <input class="calc-input" id="calc-height" type="number" placeholder="Рост (см)">
 <select id="calc-activity" class="calc-input">
-<option value="">Активность...</option>
+<option value="">Уровень активности...</option>
 <option value="1.2">Сидячий образ жизни</option>
 <option value="1.375">Лёгкие тренировки 1-3 раза</option>
 <option value="1.55">Тренировки 3-5 раз в неделю</option>
 <option value="1.725">Интенсивные тренировки 6-7 раз</option>
 </select>
-<button class="btn" onclick="calcKbju()">Рассчитать</button>
+<div class="btn" onclick="calcKbju()">Рассчитать КБЖУ</div>
 <div class="calc-result" id="calc-result">
-<h4>Твои показатели:</h4>
+<div style="font-size:13px;color:#ff6600;font-weight:700;margin-bottom:10px;">Твои показатели:</div>
 <div class="calc-row"><span>Калории</span><span id="r-kcal" style="color:#ff6600;font-weight:700;"></span></div>
 <div class="calc-row"><span>Белки</span><span id="r-prot" style="color:#ff6600;font-weight:700;"></span></div>
 <div class="calc-row"><span>Жиры</span><span id="r-fat" style="color:#ff6600;font-weight:700;"></span></div>
 <div class="calc-row"><span>Углеводы</span><span id="r-carb" style="color:#ff6600;font-weight:700;"></span></div>
-<p style="font-size:11px;color:#888;margin-top:10px;">Это базовый расчёт. Для точного плана с учётом твоего организма — закажи составление диеты.</p>
-<button class="btn" onclick="openTg()">Заказать диету у тренера</button>
-</div>
+<p style="font-size:11px;color:#666;margin-top:10px;">Для точного плана под твой организм — закажи диету у тренера.</p>
+<div class="btn" onclick="openTg()">Заказать диету</div>
 </div>
 </div>
 
-<div id="q" class="page">
-<div class="quiz-box">
-<div class="quiz-title">🎯 Определи свой тип телосложения</div>
+<!-- Тест -->
+<div id="learn-quiz" style="display:none;">
 <div id="quiz-content">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Вопрос 1 из 3: Как ты набираешь вес?</p>
-<button class="quiz-btn" onclick="quizAnswer(1,1)">😤 Легко набираю — смотрю на еду и уже толстею</button>
-<button class="quiz-btn" onclick="quizAnswer(1,2)">😐 Умеренно — нужно постараться чтобы набрать или сбросить</button>
-<button class="quiz-btn" onclick="quizAnswer(1,3)">😅 Сложно набрать — ем много но остаюсь худым</button>
+<button class="quiz-option" onclick="quizAnswer(1,1)">😤 Легко — смотрю на еду и уже толстею</button>
+<button class="quiz-option" onclick="quizAnswer(1,2)">😐 Умеренно — нужно постараться</button>
+<button class="quiz-option" onclick="quizAnswer(1,3)">😅 Сложно — ем много но остаюсь худым</button>
 </div>
+</div>
+
+</div>
+</div>
+
+<!-- FAQ -->
+<div id="faq" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">❓ FAQ</div>
+</div>
+<div class="page-content">
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">С чего начать? <span class="faq-arrow">▼</span></div><div class="faq-a">Напиши мне в личку — задам вопросы о целях и здоровье. Предложу подходящий формат работы.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Сколько времени до результата? <span class="faq-arrow">▼</span></div><div class="faq-a">Первые изменения через 3-4 недели. Серьёзная трансформация — 3-6 месяцев при системной работе.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Работаете с новичками? <span class="faq-arrow">▼</span></div><div class="faq-a">Да, с любым уровнем — от новичков до профессионалов.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Работаете с клиентами из других стран? <span class="faq-arrow">▼</span></div><div class="faq-a">Да, онлайн по всему миру. Оплата USDT — удобно для любой страны.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Как проходит онлайн-ведение? <span class="faq-arrow">▼</span></div><div class="faq-a">Получаешь программу и питание. Каждый день отчёт — я анализирую и даю рекомендации. Раз в неделю разбираем результаты.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Зачем разбирать анализы? <span class="faq-arrow">▼</span></div><div class="faq-a">Многие проблемы с весом и энергией связаны с гормонами. Как специалист с медицинским образованием вижу то что обычный тренер пропустит.</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Безопасны ли курсы стероидов? <span class="faq-arrow">▼</span></div><div class="faq-a">При грамотном подходе да. Контролирую анализы до, во время и после. ПКТ включена. 18+</div></div>
+<div class="faq-card" onclick="toggleFaq(this)"><div class="faq-q">Как оплатить? <span class="faq-arrow">▼</span></div><div class="faq-a">USDT TRC-20. После оплаты напиши в личку — начинаем в течение 24 часов.</div></div>
+<div class="btn" onclick="openTg()">✉️ Задать вопрос</div>
+</div>
+</div>
+
+<!-- ОПЛАТА -->
+<div id="pay" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">💳 Оплата</div>
+</div>
+<div class="page-content">
+<div class="usdt-box">
+<div class="usdt-title">💳 USDT TRC-20</div>
+<div class="usdt-addr" id="addr">TES8Z2VYduByHczLBj87vTqJDECGbFdEyH</div>
+<div class="copy-btn" onclick="copyAddr()">📋 Скопировать адрес</div>
+</div>
+<div style="background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:12px;">
+<div style="font-size:12px;color:#888;line-height:1.8;">
+⚠️ Отправляй <strong style="color:#fff;">только USDT</strong> в сети <strong style="color:#ff6600;">TRC-20</strong><br>
+✅ Минимальный депозит: 0.01 USDT<br>
+⏱ Зачисление: до 1 минуты<br>
+📱 После оплаты напиши тренеру
+</div>
+</div>
+<div class="btn" onclick="openTg()">✉️ Написать после оплаты</div>
 </div>
 </div>
 
 <script>
-var quizScores=[0,0,0];
-var quizStep=1;
-function quizAnswer(step,answer){
-quizScores[step-1]=answer;
-if(step<3){
-quizStep++;
-var questions=[
-"",
-"Вопрос 2 из 3: Какое у тебя телосложение от природы?",
-"Вопрос 3 из 3: Как быстро ты восстанавливаешься после тренировок?"
-];
-var options=[
-[],
-["😤 Широкий, склонный к полноте","😐 Средний, пропорциональный","😅 Узкий, худощавый"],
-["😤 Долго — мышцы болят 3-4 дня","😐 Нормально — 1-2 дня","😅 Быстро — уже на следующий день готов"]
-];
-var html="<p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+questions[step]+"</p>";
-options[step].forEach(function(opt,i){
-html+="<button class='quiz-btn' onclick='quizAnswer("+(step+1)+","+(i+1)+")'>"+opt+"</button>";
-});
-document.getElementById("quiz-content").innerHTML=html;
-} else {
-var sum=quizScores[0]+quizScores[1]+quizScores[2];
-var type,desc,rec;
-if(sum<=5){type="Эндоморф";desc="Ты легко набираешь вес и жир. Твой приоритет — контроль питания и кардио.";rec="Диета + Программа тренировок + Разбор анализов";}
-else if(sum<=8){type="Мезоморф";desc="Идеальный тип для бодибилдинга. Быстро набираешь мышцы и легко сжигаешь жир.";rec="Программа тренировок + Онлайн-ведение PRO";}
-else{type="Эктоморф";desc="Худощавый тип. Сложно набрать массу, но легко держать форму.";rec="Программа тренировок + Диета с профицитом + Ведение ELITE";}
-document.getElementById("quiz-content").innerHTML="<div style='text-align:center;padding:10px 0;'><div style='font-size:32px;margin-bottom:8px;'>🏆</div><div style='font-size:20px;font-weight:900;color:#ff6600;margin-bottom:8px;'>"+type+"</div><p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+desc+"</p><div style='background:#111;border-radius:10px;padding:12px;margin-bottom:12px;'><div style='font-size:11px;color:#ff6600;margin-bottom:4px;'>РЕКОМЕНДУЮ:</div><div style='font-size:13px;color:#fff;'>"+rec+"</div></div><button class='btn' onclick='openTg()'>Написать тренеру</button></div>";
-}
-}
-function showMuscle(muscle){
-document.querySelectorAll('.muscle-detail').forEach(function(el){el.classList.remove('active');});
-document.querySelectorAll('.atlas-tab').forEach(function(el){el.classList.remove('active');});
-document.getElementById('muscle-'+muscle).classList.add('active');
-event.target.classList.add('active');
-}
-function showChestPart(part){
-document.getElementById('chest-upper').style.display='none';
-document.getElementById('chest-mid').style.display='none';
-document.getElementById('chest-lower').style.display='none';
-document.getElementById('chest-'+part).style.display='block';
-var btns=document.querySelectorAll('#muscle-chest button');
-btns.forEach(function(b){b.style.background='#1a1a1a';b.style.color='#fff';b.style.borderColor='#333';});
-event.target.style.background='#ff6600';
-event.target.style.color='#000';
-event.target.style.borderColor='#ff6600';
-}
-function toggleKb(card){
-card.classList.toggle("open");
-}
-function startTimer(){
-var end=new Date();
-end.setHours(end.getHours()+23);
-end.setMinutes(end.getMinutes()+47);
-function update(){
-var now=new Date();
-var diff=end-now;
-if(diff<=0){diff=0;}
-var h=Math.floor(diff/3600000);
-var m=Math.floor((diff%3600000)/60000);
-var s=Math.floor((diff%60000)/1000);
-document.getElementById("th").textContent=String(h).padStart(2,"0");
-document.getElementById("tm").textContent=String(m).padStart(2,"0");
-document.getElementById("ts").textContent=String(s).padStart(2,"0");
-}
-update();
-setInterval(update,1000);
-}
-startTimer();
-function calcKbju(){
-var goal=document.getElementById("calc-goal").value;
-var age=parseInt(document.getElementById("calc-age").value);
-var weight=parseInt(document.getElementById("calc-weight").value);
-var height=parseInt(document.getElementById("calc-height").value);
-var activity=parseFloat(document.getElementById("calc-activity").value);
-if(!goal||!age||!weight||!height||!activity){
-if(tg){tg.showAlert("Заполни все поля!");}
-return;
-}
-var bmr=10*weight+6.25*height-5*age+5;
-var tdee=Math.round(bmr*activity);
-var kcal=goal==="cut"?tdee-400:goal==="mass"?tdee+300:tdee;
-var prot=Math.round(weight*2);
-var fat=Math.round(kcal*0.25/9);
-var carb=Math.round((kcal-prot*4-fat*9)/4);
-document.getElementById("r-kcal").textContent=kcal+" ккал";
-document.getElementById("r-prot").textContent=prot+" г";
-document.getElementById("r-fat").textContent=fat+" г";
-document.getElementById("r-carb").textContent=carb+" г";
-document.getElementById("calc-result").style.display="block";
-}
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
-var goalMessages = {
-mass: "💪 Набор массы\n\nТебе нужны: Программа тренировок + Диета + Онлайн-ведение\n\nЯ помог сотням набрать качественную массу без лишнего жира.",
-cut: "🔥 Похудение\n\nТебе нужны: Диета + Программа тренировок + Консультация\n\nМой рекорд клиента — минус 47 кг за 6 месяцев.",
-relief: "⚡ Рельеф\n\nТебе нужны: Диета + Разбор анализов + Программа\n\nРельеф — это на 80% питание. Я знаю как.",
-strength: "🏆 Сила\n\nТебе нужны: Программа + Онлайн-ведение\n\nЯ чемпион мира по пауэрлифтингу. Знаю о силе всё."
-};
-function selectGoal(goal){
-document.getElementById("goal-screen").style.display="none";
-document.getElementById("main-app").style.display="block";
-if(tg){
-tg.showPopup({
-title:"Отличный выбор!",
-message: goalMessages[goal],
-buttons:[{id:"ok",type:"default",text:"Смотреть услуги"}]
+
+var quizScores=[0,0,0];
+
+function goTo(page){
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+document.getElementById(page).classList.add('active');
+if(page==='services'){startTimer();animateCounters();}
+}
+
+function goHome(){
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+document.getElementById('home').classList.add('active');
+}
+
+function showMedia(tab){
+document.getElementById('media-gallery').style.display=tab==='gallery'?'block':'none';
+document.getElementById('media-before').style.display=tab==='before'?'block':'none';
+document.querySelectorAll('#media .sub-btn').forEach(function(b,i){
+b.classList.toggle('active',i===(tab==='gallery'?0:1));
 });
 }
-animateCounters();
+
+function showLearn(tab){
+var tabs=['base','atlas','calc','quiz'];
+tabs.forEach(function(t){document.getElementById('learn-'+t).style.display='none';});
+document.getElementById('learn-'+tab).style.display='block';
+document.querySelectorAll('#learn .sub-btn').forEach(function(b,i){
+b.classList.toggle('active',tabs[i]===tab);
+});
 }
+
+function showMuscle(el,muscle){
+document.querySelectorAll('.muscle-section').forEach(function(s){s.classList.remove('active');});
+document.getElementById('ms-'+muscle).classList.add('active');
+document.querySelectorAll('.muscle-tab').forEach(function(t){t.classList.remove('active');});
+el.classList.add('active');
+}
+
+function showChest(el,part){
+['upper','mid','lower'].forEach(function(p){document.getElementById('cp-'+p).style.display='none';});
+document.getElementById('cp-'+part).style.display='block';
+document.querySelectorAll('.chest-part').forEach(function(b){b.classList.remove('active');});
+el.classList.add('active');
+}
+
+function toggleLearn(card){card.classList.toggle('open');}
+function toggleFaq(card){card.classList.toggle('open');}
+
+function buyService(name,price){
+if(tg){
+tg.showPopup({
+title:name,
+message:'Стоимость: '+price+' USDT\n\nПерейти к оплате?',
+buttons:[{id:'pay',type:'default',text:'Оплатить'},{id:'cancel',type:'cancel'}]
+},function(btn){if(btn==='pay')goTo('pay');});
+}
+}
+
+function copyAddr(){
+navigator.clipboard.writeText(document.getElementById('addr').textContent);
+if(tg){tg.showAlert('Адрес скопирован!');}else{alert('Скопировано!');}
+}
+
+function openTg(){
+if(tg){tg.sendData(JSON.stringify({action:'contact'}));}
+}
+
+function startTimer(){
+var end=new Date();
+end.setHours(end.getHours()+23,end.getMinutes()+47,0);
+function update(){
+var diff=end-new Date();
+if(diff<0)diff=0;
+document.getElementById('th').textContent=String(Math.floor(diff/3600000)).padStart(2,'0');
+document.getElementById('tm').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+document.getElementById('ts').textContent=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+}
+update();setInterval(update,1000);
+}
+
 function animateCounters(){
-var counters=document.querySelectorAll('.counter-num[data-target]');
-counters.forEach(function(el){
+document.querySelectorAll('.counter-num[data-target]').forEach(function(el){
 var target=parseInt(el.getAttribute('data-target'));
 var current=0;
-var step=Math.ceil(target/50);
+var step=Math.ceil(target/40);
 var timer=setInterval(function(){
 current+=step;
 if(current>=target){current=target;clearInterval(timer);}
@@ -428,26 +614,44 @@ el.textContent=current+'+';
 },30);
 });
 }
-setTimeout(animateCounters,300);
-function show(id){
-var ids=['s','t','g','p','r','f','c','q','k','a'];
-for(var i=0;i<ids.length;i++){
-document.getElementById(ids[i]).style.display='none';
-document.getElementById(ids[i]).className='page';
+
+function quizAnswer(step,answer){
+quizScores[step-1]=answer;
+if(step<3){
+var q2={q:'Вопрос 2 из 3: Какое у тебя телосложение?',o:['😤 Широкий, склонный к полноте','😐 Средний, пропорциональный','😅 Узкий, худощавый']};
+var q3={q:'Вопрос 3 из 3: Как быстро восстанавливаешься?',o:['😤 Долго — боль 3-4 дня','😐 Нормально — 1-2 дня','😅 Быстро — на следующий день готов']};
+var next=step===1?q2:q3;
+var html='<p style="font-size:13px;color:#aaa;margin-bottom:12px;">'+next.q+'</p>';
+next.o.forEach(function(o,i){html+='<button class="quiz-option" onclick="quizAnswer('+(step+1)+','+(i+1)+')">'+o+'</button>';});
+document.getElementById('quiz-content').innerHTML=html;
+} else {
+var sum=quizScores[0]+quizScores[1]+quizScores[2];
+var type,desc,rec;
+if(sum<=5){type='Эндоморф';desc='Легко набираешь жир. Приоритет — контроль питания и кардио.';rec='Диета + Программа + Разбор анализов';}
+else if(sum<=8){type='Мезоморф';desc='Идеальный тип для бодибилдинга. Быстро набираешь мышцы.';rec='Программа тренировок + Ведение PRO';}
+else{type='Эктоморф';desc='Сложно набрать массу, но легко держать форму.';rec='Программа + Диета с профицитом + Ведение ELITE';}
+document.getElementById('quiz-content').innerHTML='<div style="text-align:center;padding:10px;"><div style="font-size:40px;margin-bottom:8px;">🏆</div><div style="font-size:22px;font-weight:900;color:#ff6600;margin-bottom:8px;">'+type+'</div><p style="font-size:13px;color:#aaa;margin-bottom:12px;">'+desc+'</p><div style="background:#111;border-radius:10px;padding:12px;margin-bottom:12px;"><div style="font-size:11px;color:#ff6600;margin-bottom:4px;">РЕКОМЕНДУЮ:</div><div style="font-size:13px;">'+rec+'</div></div><div class="btn" onclick="openTg()">Написать тренеру</div></div>';
 }
-document.getElementById(id).style.display='block';
-document.getElementById(id).className='page active';
-var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7,k:8,a:9};
-for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
-tabs[map[id]].className='tab active';
 }
-function copyAddr(){
-navigator.clipboard.writeText(document.getElementById('addr').textContent);
-if(tg){tg.showAlert('Адрес скопирован!');}else{alert('Скопировано!');}
-}
-function openTg(){
-if(tg){tg.sendData(JSON.stringify({action:'contact'}));}
+
+function calcKbju(){
+var goal=document.getElementById('calc-goal').value;
+var age=parseInt(document.getElementById('calc-age').value);
+var weight=parseInt(document.getElementById('calc-weight').value);
+var height=parseInt(document.getElementById('calc-height').value);
+var activity=parseFloat(document.getElementById('calc-activity').value);
+if(!goal||!age||!weight||!height||!activity){if(tg)tg.showAlert('Заполни все поля!');return;}
+var bmr=10*weight+6.25*height-5*age+5;
+var tdee=Math.round(bmr*activity);
+var kcal=goal==='cut'?tdee-400:goal==='mass'?tdee+300:tdee;
+var prot=Math.round(weight*2);
+var fat=Math.round(kcal*0.25/9);
+var carb=Math.round((kcal-prot*4-fat*9)/4);
+document.getElementById('r-kcal').textContent=kcal+' ккал';
+document.getElementById('r-prot').textContent=prot+' г';
+document.getElementById('r-fat').textContent=fat+' г';
+document.getElementById('r-carb').textContent=carb+' г';
+document.getElementById('calc-result').style.display='block';
 }
 </script>
 </body>
