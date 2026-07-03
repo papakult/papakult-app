@@ -31,6 +31,21 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 .addr{background:#1a1a1a;border-radius:10px;padding:16px;margin-top:12px;}
 .addr h4{color:#ff6600;margin-bottom:8px;}
 .addr p{font-size:11px;color:#888;word-break:break-all;font-family:monospace;}
+
+@keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes countUp {from{opacity:0;}to{opacity:1;}}
+.page.active .card, .page.active .ach {animation:fadeIn 0.4s ease forwards;}
+.page.active .card:nth-child(1){animation-delay:0.05s;}
+.page.active .card:nth-child(2){animation-delay:0.1s;}
+.page.active .card:nth-child(3){animation-delay:0.15s;}
+.page.active .card:nth-child(4){animation-delay:0.2s;}
+.page.active .card:nth-child(5){animation-delay:0.25s;}
+.page.active .card:nth-child(6){animation-delay:0.3s;}
+.page.active .card:nth-child(7){animation-delay:0.35s;}
+.counter-box{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 0;}
+.counter{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #333;border-radius:12px;padding:16px 8px;text-align:center;}
+.counter-num{font-size:28px;font-weight:900;color:#ff6600;}
+.counter-label{font-size:10px;color:#666;margin-top:4px;}
 </style>
 </head>
 <body>
@@ -51,6 +66,11 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 </div>
 
 <div id="s" class="page active">
+<div class="counter-box">
+<div class="counter"><div class="counter-num" data-target="500">0</div><div class="counter-label">Клиентов</div></div>
+<div class="counter"><div class="counter-num" data-target="20">0</div><div class="counter-label">Лет опыта</div></div>
+<div class="counter"><div class="counter-num" data-target="100">0</div><div class="counter-label">Чемпионов</div></div>
+</div>
 <div class="card"><h3>🗣 Консультация</h3><p>Онлайн 60 минут. Научный подход</p><div class="price">120 USDT</div></div>
 <div class="card"><h3>📋 Программа тренировок</h3><p>Индивидуальная на 8-12 недель</p><div class="price">150 USDT</div></div>
 <div class="card"><h3>🥗 Составление диеты</h3><p>КБЖУ, меню, добавки</p><div class="price">100 USDT</div></div>
@@ -122,6 +142,20 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <script>
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
+function animateCounters(){
+var counters=document.querySelectorAll('.counter-num[data-target]');
+counters.forEach(function(el){
+var target=parseInt(el.getAttribute('data-target'));
+var current=0;
+var step=Math.ceil(target/50);
+var timer=setInterval(function(){
+current+=step;
+if(current>=target){current=target;clearInterval(timer);}
+el.textContent=current+'+';
+},30);
+});
+}
+setTimeout(animateCounters,300);
 function show(id){
 var ids=['s','t','g','p','r','f'];
 for(var i=0;i<ids.length;i++){
