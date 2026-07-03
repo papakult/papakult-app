@@ -51,6 +51,26 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 .page.active .card:nth-child(5){animation-delay:0.25s;}
 .page.active .card:nth-child(6){animation-delay:0.3s;}
 .page.active .card:nth-child(7){animation-delay:0.35s;}
+.kb-section{margin-bottom:20px;}
+.kb-section-title{font-size:11px;color:#ff6600;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.kb-card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #222;transition:all 0.2s;}
+.kb-card:active{background:#222;}
+.kb-card-header{display:flex;justify-content:space-between;align-items:center;}
+.kb-card h4{font-size:14px;font-weight:700;color:#fff;}
+.kb-card-icon{font-size:20px;}
+.kb-card-arrow{color:#ff6600;font-size:16px;transition:transform 0.3s;}
+.kb-card.open .kb-card-arrow{transform:rotate(90deg);}
+.kb-card-body{display:none;margin-top:12px;border-top:1px solid #2a2a2a;padding-top:12px;}
+.kb-card.open .kb-card-body{display:block;}
+.kb-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #222;}
+.kb-item:last-child{border:none;margin-bottom:0;padding-bottom:0;}
+.kb-item-icon{font-size:22px;flex-shrink:0;}
+.kb-item-name{font-size:13px;font-weight:700;color:#ff6600;margin-bottom:3px;}
+.kb-item-dose{font-size:11px;color:#888;margin-bottom:3px;}
+.kb-item-desc{font-size:12px;color:#ccc;line-height:1.5;}
+.kb-tag{display:inline-block;background:#ff6600;color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:4px;margin-bottom:4px;}
+.kb-tag.blue{background:#0066ff;}
+.kb-tag.green{background:#00aa44;}
 .timer-box{background:linear-gradient(135deg,#1a0000,#1a0a00);border:1px solid #ff3300;border-radius:14px;padding:16px;margin:0 0 16px 0;text-align:center;}
 .timer-title{font-size:11px;color:#ff3300;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
 .timer-digits{display:flex;justify-content:center;gap:8px;}
@@ -133,6 +153,7 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="tab" onclick="show('f')">FAQ</div>
 <div class="tab" onclick="show('c')">Калькулятор</div>
 <div class="tab" onclick="show('q')">Тест</div>
+<div class="tab" onclick="show('k')">База</div>
 </div>
 
 <div id="s" class="page active">
@@ -294,6 +315,9 @@ else{type="Эктоморф";desc="Худощавый тип. Сложно на�
 document.getElementById("quiz-content").innerHTML="<div style='text-align:center;padding:10px 0;'><div style='font-size:32px;margin-bottom:8px;'>🏆</div><div style='font-size:20px;font-weight:900;color:#ff6600;margin-bottom:8px;'>"+type+"</div><p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+desc+"</p><div style='background:#111;border-radius:10px;padding:12px;margin-bottom:12px;'><div style='font-size:11px;color:#ff6600;margin-bottom:4px;'>РЕКОМЕНДУЮ:</div><div style='font-size:13px;color:#fff;'>"+rec+"</div></div><button class='btn' onclick='openTg()'>Написать тренеру</button></div>";
 }
 }
+function toggleKb(card){
+card.classList.toggle("open");
+}
 function startTimer(){
 var end=new Date();
 end.setHours(end.getHours()+23);
@@ -370,7 +394,7 @@ el.textContent=current+'+';
 }
 setTimeout(animateCounters,300);
 function show(id){
-var ids=['s','t','g','p','r','f','c','q'];
+var ids=['s','t','g','p','r','f','c','q','k'];
 for(var i=0;i<ids.length;i++){
 document.getElementById(ids[i]).style.display='none';
 document.getElementById(ids[i]).className='page';
@@ -378,7 +402,7 @@ document.getElementById(ids[i]).className='page';
 document.getElementById(id).style.display='block';
 document.getElementById(id).className='page active';
 var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7};
+var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7,k:8};
 for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
 tabs[map[id]].className='tab active';
 }
