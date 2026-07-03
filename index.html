@@ -459,7 +459,7 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="calc-row"><span>Жиры</span><span id="r-fat" style="color:#ff6600;font-weight:700;"></span></div>
 <div class="calc-row"><span>Углеводы</span><span id="r-carb" style="color:#ff6600;font-weight:700;"></span></div>
 <p style="font-size:11px;color:#666;margin-top:10px;">Для точного плана под твой организм — закажи диету у тренера.</p>
-<div class="btn" onclick="openTg()">Заказать диету</div>
+<div class="btn" onclick="orderDiet()">🥗 Заказать диету с моими данными</div>
 </div>
 </div>
 
@@ -638,7 +638,10 @@ document.getElementById('quiz-content').innerHTML='<div style="text-align:center
 }
 }
 
+var lastCalcData={};
 function calcKbju(){
+var goalMap={'cut':'Похудение','maintain':'Поддержание формы','mass':'Набор массы'};
+var actMap={'1.2':'Сидячий','1.375':'Лёгкие тренировки','1.55':'Тренировки 3-5 раз','1.725':'Интенсивные тренировки'};
 var goal=document.getElementById('calc-goal').value;
 var age=parseInt(document.getElementById('calc-age').value);
 var weight=parseInt(document.getElementById('calc-weight').value);
@@ -656,6 +659,15 @@ document.getElementById('r-prot').textContent=prot+' г';
 document.getElementById('r-fat').textContent=fat+' г';
 document.getElementById('r-carb').textContent=carb+' г';
 document.getElementById('calc-result').style.display='block';
+lastCalcData={goal:goalMap[goal],age:age,weight:weight,height:height,activity:actMap[String(activity)],kcal:kcal,prot:prot,fat:fat,carb:carb};
+}
+function orderDiet(){
+var msg='Привет! Хочу заказать диету.';
+if(lastCalcData.goal){
+msg+=' Мои данные: цель — '+lastCalcData.goal+', возраст '+lastCalcData.age+' лет, вес '+lastCalcData.weight+'кг, рост '+lastCalcData.height+'см, активность — '+lastCalcData.activity+'. Расчёт КБЖУ: '+lastCalcData.kcal+' ккал / белки '+lastCalcData.prot+'г / жиры '+lastCalcData.fat+'г / углеводы '+lastCalcData.carb+'г.';
+}
+var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
+if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);}else{window.open(url,'_blank');}
 }
 </script>
 </body>
