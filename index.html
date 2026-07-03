@@ -51,6 +51,24 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 .page.active .card:nth-child(5){animation-delay:0.25s;}
 .page.active .card:nth-child(6){animation-delay:0.3s;}
 .page.active .card:nth-child(7){animation-delay:0.35s;}
+.atlas-body{position:relative;width:100%;max-width:320px;margin:0 auto 16px;}
+.atlas-svg{width:100%;}
+.muscle-group{cursor:pointer;transition:all 0.2s;}
+.muscle-group:hover{filter:brightness(1.3);}
+.muscle-group.active{filter:brightness(1.5);}
+.atlas-tabs{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;}
+.atlas-tab{flex-shrink:0;padding:8px 14px;background:#1a1a1a;border-radius:20px;font-size:12px;color:#888;cursor:pointer;border:1px solid #222;white-space:nowrap;}
+.atlas-tab.active{background:#ff6600;color:#000;font-weight:700;border-color:#ff6600;}
+.muscle-detail{display:none;}
+.muscle-detail.active{display:block;}
+.exercise-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:10px;border:1px solid #222;}
+.exercise-img{width:100%;height:140px;object-fit:cover;}
+.exercise-info{padding:12px;}
+.exercise-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+.exercise-sets{font-size:11px;color:#ff6600;margin-bottom:6px;}
+.exercise-desc{font-size:12px;color:#888;line-height:1.5;}
+.muscle-title{font-size:16px;font-weight:900;color:#ff6600;margin-bottom:4px;}
+.muscle-sub{font-size:12px;color:#888;margin-bottom:12px;}
 .kb-section{margin-bottom:20px;}
 .kb-section-title{font-size:11px;color:#ff6600;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:8px;}
 .kb-card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #222;transition:all 0.2s;}
@@ -154,6 +172,7 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="tab" onclick="show('c')">Калькулятор</div>
 <div class="tab" onclick="show('q')">Тест</div>
 <div class="tab" onclick="show('k')">База</div>
+<div class="tab" onclick="show('a')">Атлас</div>
 </div>
 
 <div id="s" class="page active">
@@ -315,6 +334,23 @@ else{type="Эктоморф";desc="Худощавый тип. Сложно на�
 document.getElementById("quiz-content").innerHTML="<div style='text-align:center;padding:10px 0;'><div style='font-size:32px;margin-bottom:8px;'>🏆</div><div style='font-size:20px;font-weight:900;color:#ff6600;margin-bottom:8px;'>"+type+"</div><p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+desc+"</p><div style='background:#111;border-radius:10px;padding:12px;margin-bottom:12px;'><div style='font-size:11px;color:#ff6600;margin-bottom:4px;'>РЕКОМЕНДУЮ:</div><div style='font-size:13px;color:#fff;'>"+rec+"</div></div><button class='btn' onclick='openTg()'>Написать тренеру</button></div>";
 }
 }
+function showMuscle(muscle){
+document.querySelectorAll('.muscle-detail').forEach(function(el){el.classList.remove('active');});
+document.querySelectorAll('.atlas-tab').forEach(function(el){el.classList.remove('active');});
+document.getElementById('muscle-'+muscle).classList.add('active');
+event.target.classList.add('active');
+}
+function showChestPart(part){
+document.getElementById('chest-upper').style.display='none';
+document.getElementById('chest-mid').style.display='none';
+document.getElementById('chest-lower').style.display='none';
+document.getElementById('chest-'+part).style.display='block';
+var btns=document.querySelectorAll('#muscle-chest button');
+btns.forEach(function(b){b.style.background='#1a1a1a';b.style.color='#fff';b.style.borderColor='#333';});
+event.target.style.background='#ff6600';
+event.target.style.color='#000';
+event.target.style.borderColor='#ff6600';
+}
 function toggleKb(card){
 card.classList.toggle("open");
 }
@@ -394,7 +430,7 @@ el.textContent=current+'+';
 }
 setTimeout(animateCounters,300);
 function show(id){
-var ids=['s','t','g','p','r','f','c','q','k'];
+var ids=['s','t','g','p','r','f','c','q','k','a'];
 for(var i=0;i<ids.length;i++){
 document.getElementById(ids[i]).style.display='none';
 document.getElementById(ids[i]).className='page';
@@ -402,7 +438,7 @@ document.getElementById(ids[i]).className='page';
 document.getElementById(id).style.display='block';
 document.getElementById(id).className='page active';
 var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7,k:8};
+var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7,k:8,a:9};
 for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
 tabs[map[id]].className='tab active';
 }
