@@ -51,6 +51,23 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 .page.active .card:nth-child(5){animation-delay:0.25s;}
 .page.active .card:nth-child(6){animation-delay:0.3s;}
 .page.active .card:nth-child(7){animation-delay:0.35s;}
+.timer-box{background:linear-gradient(135deg,#1a0000,#1a0a00);border:1px solid #ff3300;border-radius:14px;padding:16px;margin:0 0 16px 0;text-align:center;}
+.timer-title{font-size:11px;color:#ff3300;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.timer-digits{display:flex;justify-content:center;gap:8px;}
+.timer-block{background:#0a0a0a;border-radius:8px;padding:8px 12px;min-width:52px;}
+.timer-num{font-size:24px;font-weight:900;color:#ff6600;}
+.timer-label{font-size:9px;color:#666;text-transform:uppercase;}
+.calc-box{background:#1a1a1a;border-radius:14px;padding:16px;margin-bottom:16px;}
+.calc-title{font-size:13px;color:#ff6600;font-weight:700;margin-bottom:12px;}
+.calc-input{width:100%;background:#111;border:1px solid #333;border-radius:8px;padding:10px 12px;color:#fff;font-size:14px;margin-bottom:8px;}
+.calc-result{background:#111;border-radius:10px;padding:12px;margin-top:10px;display:none;}
+.calc-result h4{color:#ff6600;font-size:13px;margin-bottom:8px;}
+.calc-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222;font-size:12px;}
+.calc-row:last-child{border:none;}
+.quiz-box{background:#1a1a1a;border-radius:14px;padding:16px;margin-bottom:16px;}
+.quiz-title{font-size:13px;color:#ff6600;font-weight:700;margin-bottom:12px;}
+.quiz-btn{display:block;width:100%;padding:12px;background:#111;border:1px solid #333;border-radius:10px;color:#fff;font-size:13px;cursor:pointer;margin-bottom:8px;text-align:left;}
+.quiz-btn:active{background:#ff6600;color:#000;}
 .counter-box{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 0;}
 .counter{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #333;border-radius:12px;padding:16px 8px;text-align:center;}
 .counter-num{font-size:28px;font-weight:900;color:#ff6600;}
@@ -114,9 +131,19 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <div class="tab" onclick="show('p')">Оплата</div>
 <div class="tab" onclick="show('r')">До/После</div>
 <div class="tab" onclick="show('f')">FAQ</div>
+<div class="tab" onclick="show('c')">Калькулятор</div>
+<div class="tab" onclick="show('q')">Тест</div>
 </div>
 
 <div id="s" class="page active">
+<div class="timer-box">
+<div class="timer-title">🔥 Специальная цена — акция заканчивается через</div>
+<div class="timer-digits">
+<div class="timer-block"><div class="timer-num" id="th">00</div><div class="timer-label">часов</div></div>
+<div class="timer-block"><div class="timer-num" id="tm">00</div><div class="timer-label">минут</div></div>
+<div class="timer-block"><div class="timer-num" id="ts">00</div><div class="timer-label">секунд</div></div>
+</div>
+</div>
 <div class="counter-box">
 <div class="counter"><div class="counter-num" data-target="500">0</div><div class="counter-label">Клиентов</div></div>
 <div class="counter"><div class="counter-num" data-target="20">0</div><div class="counter-label">Лет опыта</div></div>
@@ -191,7 +218,123 @@ body{background:#0a0a0a;color:#fff;font-family:sans-serif;}
 <button class="btn" onclick="openTg()">✉️ Задать вопрос тренеру</button>
 </div>
 </div>
+
+<div id="c" class="page">
+<div class="calc-box">
+<div class="calc-title">🧮 Калькулятор КБЖУ</div>
+<select id="calc-goal" class="calc-input">
+<option value="">Выбери цель...</option>
+<option value="cut">Похудение</option>
+<option value="maintain">Поддержание формы</option>
+<option value="mass">Набор массы</option>
+</select>
+<input class="calc-input" id="calc-age" type="number" placeholder="Возраст (лет)">
+<input class="calc-input" id="calc-weight" type="number" placeholder="Вес (кг)">
+<input class="calc-input" id="calc-height" type="number" placeholder="Рост (см)">
+<select id="calc-activity" class="calc-input">
+<option value="">Активность...</option>
+<option value="1.2">Сидячий образ жизни</option>
+<option value="1.375">Лёгкие тренировки 1-3 раза</option>
+<option value="1.55">Тренировки 3-5 раз в неделю</option>
+<option value="1.725">Интенсивные тренировки 6-7 раз</option>
+</select>
+<button class="btn" onclick="calcKbju()">Рассчитать</button>
+<div class="calc-result" id="calc-result">
+<h4>Твои показатели:</h4>
+<div class="calc-row"><span>Калории</span><span id="r-kcal" style="color:#ff6600;font-weight:700;"></span></div>
+<div class="calc-row"><span>Белки</span><span id="r-prot" style="color:#ff6600;font-weight:700;"></span></div>
+<div class="calc-row"><span>Жиры</span><span id="r-fat" style="color:#ff6600;font-weight:700;"></span></div>
+<div class="calc-row"><span>Углеводы</span><span id="r-carb" style="color:#ff6600;font-weight:700;"></span></div>
+<p style="font-size:11px;color:#888;margin-top:10px;">Это базовый расчёт. Для точного плана с учётом твоего организма — закажи составление диеты.</p>
+<button class="btn" onclick="openTg()">Заказать диету у тренера</button>
+</div>
+</div>
+</div>
+
+<div id="q" class="page">
+<div class="quiz-box">
+<div class="quiz-title">🎯 Определи свой тип телосложения</div>
+<div id="quiz-content">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Вопрос 1 из 3: Как ты набираешь вес?</p>
+<button class="quiz-btn" onclick="quizAnswer(1,1)">😤 Легко набираю — смотрю на еду и уже толстею</button>
+<button class="quiz-btn" onclick="quizAnswer(1,2)">😐 Умеренно — нужно постараться чтобы набрать или сбросить</button>
+<button class="quiz-btn" onclick="quizAnswer(1,3)">😅 Сложно набрать — ем много но остаюсь худым</button>
+</div>
+</div>
+</div>
+
 <script>
+var quizScores=[0,0,0];
+var quizStep=1;
+function quizAnswer(step,answer){
+quizScores[step-1]=answer;
+if(step<3){
+quizStep++;
+var questions=[
+"",
+"Вопрос 2 из 3: Какое у тебя телосложение от природы?",
+"Вопрос 3 из 3: Как быстро ты восстанавливаешься после тренировок?"
+];
+var options=[
+[],
+["😤 Широкий, склонный к полноте","😐 Средний, пропорциональный","😅 Узкий, худощавый"],
+["😤 Долго — мышцы болят 3-4 дня","😐 Нормально — 1-2 дня","😅 Быстро — уже на следующий день готов"]
+];
+var html="<p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+questions[step]+"</p>";
+options[step].forEach(function(opt,i){
+html+="<button class='quiz-btn' onclick='quizAnswer("+(step+1)+","+(i+1)+")'>"+opt+"</button>";
+});
+document.getElementById("quiz-content").innerHTML=html;
+} else {
+var sum=quizScores[0]+quizScores[1]+quizScores[2];
+var type,desc,rec;
+if(sum<=5){type="Эндоморф";desc="Ты легко набираешь вес и жир. Твой приоритет — контроль питания и кардио.";rec="Диета + Программа тренировок + Разбор анализов";}
+else if(sum<=8){type="Мезоморф";desc="Идеальный тип для бодибилдинга. Быстро набираешь мышцы и легко сжигаешь жир.";rec="Программа тренировок + Онлайн-ведение PRO";}
+else{type="Эктоморф";desc="Худощавый тип. Сложно набрать массу, но легко держать форму.";rec="Программа тренировок + Диета с профицитом + Ведение ELITE";}
+document.getElementById("quiz-content").innerHTML="<div style='text-align:center;padding:10px 0;'><div style='font-size:32px;margin-bottom:8px;'>🏆</div><div style='font-size:20px;font-weight:900;color:#ff6600;margin-bottom:8px;'>"+type+"</div><p style='font-size:13px;color:#aaa;margin-bottom:12px;'>"+desc+"</p><div style='background:#111;border-radius:10px;padding:12px;margin-bottom:12px;'><div style='font-size:11px;color:#ff6600;margin-bottom:4px;'>РЕКОМЕНДУЮ:</div><div style='font-size:13px;color:#fff;'>"+rec+"</div></div><button class='btn' onclick='openTg()'>Написать тренеру</button></div>";
+}
+}
+function startTimer(){
+var end=new Date();
+end.setHours(end.getHours()+23);
+end.setMinutes(end.getMinutes()+47);
+function update(){
+var now=new Date();
+var diff=end-now;
+if(diff<=0){diff=0;}
+var h=Math.floor(diff/3600000);
+var m=Math.floor((diff%3600000)/60000);
+var s=Math.floor((diff%60000)/1000);
+document.getElementById("th").textContent=String(h).padStart(2,"0");
+document.getElementById("tm").textContent=String(m).padStart(2,"0");
+document.getElementById("ts").textContent=String(s).padStart(2,"0");
+}
+update();
+setInterval(update,1000);
+}
+startTimer();
+function calcKbju(){
+var goal=document.getElementById("calc-goal").value;
+var age=parseInt(document.getElementById("calc-age").value);
+var weight=parseInt(document.getElementById("calc-weight").value);
+var height=parseInt(document.getElementById("calc-height").value);
+var activity=parseFloat(document.getElementById("calc-activity").value);
+if(!goal||!age||!weight||!height||!activity){
+if(tg){tg.showAlert("Заполни все поля!");}
+return;
+}
+var bmr=10*weight+6.25*height-5*age+5;
+var tdee=Math.round(bmr*activity);
+var kcal=goal==="cut"?tdee-400:goal==="mass"?tdee+300:tdee;
+var prot=Math.round(weight*2);
+var fat=Math.round(kcal*0.25/9);
+var carb=Math.round((kcal-prot*4-fat*9)/4);
+document.getElementById("r-kcal").textContent=kcal+" ккал";
+document.getElementById("r-prot").textContent=prot+" г";
+document.getElementById("r-fat").textContent=fat+" г";
+document.getElementById("r-carb").textContent=carb+" г";
+document.getElementById("calc-result").style.display="block";
+}
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
 var goalMessages = {
@@ -227,7 +370,7 @@ el.textContent=current+'+';
 }
 setTimeout(animateCounters,300);
 function show(id){
-var ids=['s','t','g','p','r','f'];
+var ids=['s','t','g','p','r','f','c','q'];
 for(var i=0;i<ids.length;i++){
 document.getElementById(ids[i]).style.display='none';
 document.getElementById(ids[i]).className='page';
@@ -235,7 +378,7 @@ document.getElementById(ids[i]).className='page';
 document.getElementById(id).style.display='block';
 document.getElementById(id).className='page active';
 var tabs=document.querySelectorAll('.tab');
-var map={s:0,t:1,g:2,p:3,r:4,f:5};
+var map={s:0,t:1,g:2,p:3,r:4,f:5,c:6,q:7};
 for(var j=0;j<tabs.length;j++){tabs[j].className='tab';}
 tabs[map[id]].className='tab active';
 }
