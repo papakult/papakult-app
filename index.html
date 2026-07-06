@@ -178,7 +178,12 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="nav-btn-label">Обучение</div>
 <div class="nav-btn-sub">База знаний</div>
 </div>
-<div class="nav-btn nav-btn-full" onclick="goTo('pay')">
+<div class="nav-btn" onclick="goTo('book')">
+<div class="nav-btn-icon">📖</div>
+<div class="nav-btn-label">Методичка</div>
+<div class="nav-btn-sub">Диетология • 5 USDT</div>
+</div>
+<div class="nav-btn" onclick="goTo('pay')">
 <div class="nav-btn-icon">💳</div>
 <div class="nav-btn-label">Оплата USDT</div>
 <div class="nav-btn-sub">TRC-20 • Быстро и безопасно</div>
@@ -518,15 +523,65 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 </div>
 
+<div id="book" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">📖 Методичка по диетологии</div>
+</div>
+<div class="page-content">
+
+<div style="background:linear-gradient(135deg,#1a0a00,#111);border:1px solid #ff6600;border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+<div style="font-size:36px;margin-bottom:8px;">📖</div>
+<div style="font-size:18px;font-weight:900;color:#ff6600;margin-bottom:4px;">База диетологии от тренера</div>
+<div style="font-size:12px;color:#888;margin-bottom:12px;">Андрей Шелест • Медицинское образование</div>
+<div style="font-size:13px;color:#ccc;line-height:1.6;">Всё что нужно знать о питании — без воды и лишней теории. Только практика и конкретные цифры.</div>
+</div>
+
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700;">📌 Что внутри</div>
+
+<div class="ach"><h4>🥩 Белки</h4><p>Нормы потребления, лучшие источники, время приёма до и после тренировки</p></div>
+<div class="ach"><h4>🥑 Жиры</h4><p>Полезные и вредные, омега-3 и омега-6, как жиры влияют на тестостерон</p></div>
+<div class="ach"><h4>🍚 Углеводы</h4><p>Простые и сложные, гликемический индекс, когда есть углеводы</p></div>
+<div class="ach"><h4>💊 Витамины и минералы</h4><p>Топ-10 важных для спортсмена, дефициты и как их закрыть</p></div>
+<div class="ach"><h4>🛒 Продуктовая корзина</h4><p>Готовый список продуктов на неделю под разные цели</p></div>
+<div class="ach"><h4>📊 Калькулятор рациона</h4><p>Расчёт БЖУ под твои параметры — вес, рост, цель, активность</p></div>
+
+<div style="background:#111;border-radius:12px;padding:16px;margin:16px 0;">
+<div style="font-size:11px;color:#ff6600;font-weight:700;margin-bottom:8px;">🆓 БЕСПЛАТНОЕ ПРЕВЬЮ</div>
+<div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;">Что такое БЖУ и зачем это знать?</div>
+<div style="font-size:13px;color:#aaa;line-height:1.7;">
+БЖУ — это белки, жиры и углеводы. Три макронутриента из которых состоит любая еда.<br><br>
+<strong style="color:#ff6600;">Белки</strong> — строительный материал для мышц. Без достаточного количества белка мышцы не растут даже при идеальных тренировках.<br><br>
+<strong style="color:#ff6600;">Жиры</strong> — не враги. Они нужны для производства гормонов включая тестостерон. Убери жиры — упадёт тестостерон.<br><br>
+<strong style="color:#ff6600;">Углеводы</strong> — топливо для тренировок. Без них нет энергии, нет интенсивности, нет прогресса.<br><br>
+Большинство людей едят слишком мало белка и слишком много простых углеводов. Это главная ошибка.
+</div>
+</div>
+
+<div style="background:linear-gradient(135deg,#1a0a00,#0a0a0a);border:2px solid #ff6600;border-radius:16px;padding:20px;text-align:center;margin-bottom:16px;">
+<div style="font-size:13px;color:#888;margin-bottom:6px;">Полный доступ к методичке</div>
+<div style="font-size:32px;font-weight:900;color:#ff6600;margin-bottom:4px;">5 USDT</div>
+<div style="font-size:12px;color:#666;margin-bottom:16px;">Разовая оплата • Доступ навсегда</div>
+<div class="btn" onclick="buyBook()">💳 Получить полный доступ</div>
+</div>
+
+</div>
+</div>
 <script>
 var tg = window.Telegram && window.Telegram.WebApp;
 if(tg){tg.ready();tg.expand();}
 
 var quizScores=[0,0,0];
 
+function buyBook(){
+var msg='Привет! Хочу купить методичку по диетологии за 5 USDT. Куда переводить?';
+var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
+if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);}else{window.open(url,'_blank');}
+}
 function goTo(page){
 document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
 document.getElementById(page).classList.add('active');
+if(page==='book'){}
 if(page==='services'){startTimer();animateCounters();}
 }
 
