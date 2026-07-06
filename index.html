@@ -523,6 +523,76 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 </div>
 
+<div id="workout" class="page">
+<div class="page-header">
+<div class="back-btn" onclick="goHome()">←</div>
+<div class="page-title">💪 Программа на массу</div>
+</div>
+<div class="page-content">
+
+<div style="background:linear-gradient(135deg,#1a0a00,#111);border:1px solid #ff6600;border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+<div style="font-size:36px;margin-bottom:8px;">💪</div>
+<div style="font-size:18px;font-weight:900;color:#ff6600;margin-bottom:4px;">3-дневная программа на массу</div>
+<div style="font-size:12px;color:#888;margin-bottom:8px;">Андрей Шелест • Чемпион мира</div>
+<div style="font-size:13px;color:#ccc;line-height:1.6;">Классический сплит для набора мышечной массы. Подходит для уровня начинающий — средний.</div>
+</div>
+
+<div style="display:flex;gap:8px;margin-bottom:16px;">
+<div style="flex:1;background:#1a1a1a;border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:2px solid #ff6600;" onclick="showDay(1)">
+<div style="font-size:16px;font-weight:900;color:#ff6600;">День 1</div>
+<div style="font-size:10px;color:#888;">Грудь + Три</div>
+</div>
+<div style="flex:1;background:#1a1a1a;border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:1px solid #333;" onclick="showDay(2)">
+<div style="font-size:16px;font-weight:900;color:#888;">День 2</div>
+<div style="font-size:10px;color:#666;">Спина + Би</div>
+</div>
+<div style="flex:1;background:#1a1a1a;border-radius:10px;padding:10px;text-align:center;cursor:pointer;border:1px solid #333;" onclick="showDay(3)">
+<div style="font-size:16px;font-weight:900;color:#888;">День 3</div>
+<div style="font-size:10px;color:#666;">Ноги + Плечи</div>
+</div>
+</div>
+
+<div id="day1">
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700;">🏋️ День 1 — Грудь + Трицепс</div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим штанги лёжа</div><div class="exercise-sets">4 подхода × 8-10 повторений</div><div class="exercise-desc">Лопатки сведены и прижаты. Штанга опускается на нижнюю часть груди. Медленно вниз — взрывной жим вверх.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим гантелей на наклонной</div><div class="exercise-sets">3 подхода × 10-12 повторений</div><div class="exercise-desc">Угол скамьи 30-45°. Максимальное растяжение в нижней точке — именно здесь растут мышцы.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка гантелей лёжа</div><div class="exercise-sets">3 подхода × 12-15 повторений</div><div class="exercise-desc">Руки чуть согнуты в локтях. Чувствуй растяжение груди в нижней точке.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Отжимания на брусьях</div><div class="exercise-sets">3 подхода × 12 повторений</div><div class="exercise-desc">Наклоняйся вперёд — нагрузка на грудь. Прямо — на трицепс.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим узким хватом</div><div class="exercise-sets">4 подхода × 10-12 повторений</div><div class="exercise-desc">Хват 20-25 см. Локти прижаты к телу. Трицепс = 2/3 объёма руки.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Французский жим</div><div class="exercise-sets">3 подхода × 12-15 повторений</div><div class="exercise-desc">Локти не расходятся. Полное разгибание вверху. Медленно вниз.</div></div></div>
+</div>
+
+<div id="day2" style="display:none;">
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700;">🔙 День 2 — Спина + Бицепс</div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Становая тяга</div><div class="exercise-sets">4 подхода × 6-8 повторений</div><div class="exercise-desc">Прямая спина обязательно. Штанга по ногам вверх. Главное упражнение для спины.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Подтягивания широким хватом</div><div class="exercise-sets">4 подхода × максимум</div><div class="exercise-desc">Тяни лопатки вниз и назад. Полное разгибание рук внизу. Лучшее для ширины спины.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Тяга штанги в наклоне</div><div class="exercise-sets">4 подхода × 8-10 повторений</div><div class="exercise-desc">Корпус параллельно полу. Тяни к животу. Для толщины спины.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Тяга верхнего блока</div><div class="exercise-sets">3 подхода × 12 повторений</div><div class="exercise-desc">Тяни к верхней части груди. Локти идут вниз и назад.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Подъём штанги на бицепс</div><div class="exercise-sets">4 подхода × 10-12 повторений</div><div class="exercise-desc">Локти прижаты. Сжимай бицепс вверху. Опускай медленно.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Молотки с гантелями</div><div class="exercise-sets">3 подхода × 12-15 повторений</div><div class="exercise-desc">Нейтральный хват (ладони друг к другу). Прорабатывает брахиалис — добавляет толщину руке.</div></div></div>
+</div>
+
+<div id="day3" style="display:none;">
+<div style="font-size:11px;color:#ff6600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700;">🦵 День 3 — Ноги + Плечи</div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Приседания со штангой</div><div class="exercise-sets">4 подхода × 8-10 повторений</div><div class="exercise-desc">Спина прямая, колени над носками. До параллели с полом. Главное упражнение для ног.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим ногами в тренажёре</div><div class="exercise-sets">4 подхода × 12-15 повторений</div><div class="exercise-desc">Ноги широко — больше ягодиц. Ноги узко — больше квадрицепс.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Румынская тяга</div><div class="exercise-sets">3 подхода × 10-12 повторений</div><div class="exercise-desc">Бицепс бедра и ягодицы. Чувствуй растяжение задней поверхности.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Сгибания ног в тренажёре</div><div class="exercise-sets">3 подхода × 15 повторений</div><div class="exercise-desc">Изоляция бицепса бедра. Полное разгибание в нижней точке.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Жим штанги стоя</div><div class="exercise-sets">4 подхода × 10-12 повторений</div><div class="exercise-desc">Не прогибай поясницу. Жми строго вверх. Основное для плеч.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка гантелей в стороны</div><div class="exercise-sets">4 подхода × 15-20 повторений</div><div class="exercise-desc">Средний пучок — делает плечи широкими. До уровня плеч.</div></div></div>
+<div class="exercise-card"><img class="exercise-img" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80"><div class="exercise-info"><div class="exercise-name">Разводка в наклоне</div><div class="exercise-sets">3 подхода × 15 повторений</div><div class="exercise-desc">Задний пучок. Убирает сутулость, даёт объём сзади.</div></div></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#1a0a00,#0a0a0a);border:2px solid #ff6600;border-radius:16px;padding:20px;text-align:center;margin-top:16px;">
+<div style="font-size:13px;color:#888;margin-bottom:6px;">Хочешь индивидуальную программу?</div>
+<div style="font-size:24px;font-weight:900;color:#ff6600;margin-bottom:4px;">150 USDT</div>
+<div style="font-size:12px;color:#666;margin-bottom:16px;">Под твои параметры и цели</div>
+<div class="btn" onclick="buyWorkout()">📋 Заказать персональную программу</div>
+</div>
+
+</div>
+</div>
+
 <div id="book" class="page">
 <div class="page-header">
 <div class="back-btn" onclick="goHome()">←</div>
@@ -573,6 +643,21 @@ if(tg){tg.ready();tg.expand();}
 
 var quizScores=[0,0,0];
 
+function showDay(day){
+[1,2,3].forEach(function(d){
+document.getElementById('day'+d).style.display=d===day?'block':'none';
+});
+var btns=document.querySelectorAll('#workout .page-content > div:nth-child(2) > div');
+btns.forEach(function(b,i){
+b.style.borderColor=i+1===day?'#ff6600':'#333';
+b.querySelector('div').style.color=i+1===day?'#ff6600':'#888';
+});
+}
+function buyWorkout(){
+var msg='Привет! Изучил программу тренировок на массу в боте. Хочу заказать персональную программу за 150 USDT. Как оплатить?';
+var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
+if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);}else{window.open(url,'_blank');}
+}
 function buyBook(){
 var msg='Привет! Хочу купить методичку по диетологии за 5 USDT. Куда переводить?';
 var url='https://t.me/Papa_Kult?text='+encodeURIComponent(msg);
